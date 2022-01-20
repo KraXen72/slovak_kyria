@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "keymap_slovak.h"
+#include "my_slovak_keymap.h"
 
 enum layers {
     _QWERTZ = 0,
