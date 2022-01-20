@@ -11,7 +11,7 @@ enum layers {
 };
 
 enum custom_keycodes {
-    E_ACUTE = SAFE_RANGE,
+    E_ACUTE = /*SAFE_RANGE*/USER00,
     R_ACUTE,
     U_ACUTE,
     I_ACUTE,
@@ -43,6 +43,8 @@ enum custom_keycodes {
 
 #define A_DIA   SK_ADIA
 #define O_CIRC  SK_OCIR
+
+//these layers don't really matter rn because i overwrite them in vial. check v12.vil for more info until i make a script to hardcode the layout here bc it's better than using EEPROM for layout
 
 // Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
 // The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
