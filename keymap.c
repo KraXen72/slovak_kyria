@@ -385,3 +385,14 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return false;
 }
 #endif
+
+//key overrides by kraXen
+//const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL); //ctrl + backspace = delete
+const key_override_t redo_key_override = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, KC_ESCAPE, LCTL(KC_Y), ~0, MOD_MASK_SHIFT);  //ctrl + escape = ctrl + y for quick redo when editing something
+
+// This globally defines all key overrides to be used
+const key_override_t **key_overrides = (const key_override_t *[]){
+	//&delete_key_override,
+    &redo_key_override,
+	NULL // Null terminate the array of overrides!
+};
