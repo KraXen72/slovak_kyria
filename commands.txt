@@ -1,0 +1,5 @@
+cd '/d/#stuff/Mechanical keyboards/qmk/vial-qmk' && make clean && qmk compile -kb splitkb/kyria/rev1 -km vial
+make clean && qmk compile -kb splitkb/kyria/rev1 -km vial
+
+cd '/d/#stuff/Mechanical keyboards/qmk/vial-qmk' && make clean && qmk compile -kb splitkb/kyria/rev1 -km slovak_kyria
+make clean && qmk compile -kb splitkb/kyria/rev1 -km slovak_kyria
