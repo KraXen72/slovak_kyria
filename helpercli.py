@@ -4,6 +4,7 @@ from textwrap import indent
 
 
 print("hello. this is KraXen's VIAL/QMK helper cli")
+print("the commands are: ")
 
 commands = [
     "genkey: generate vial customKeycodes from keymap.c"
@@ -72,5 +73,5 @@ while command != "quit":
             obj["customKeycodes"] = keycodes
 
             f = open("vial.json", 'w', encoding='utf8')
-            dumped = json.dump(obj, f, indent=4, ensure_ascii=False)
+            json.dump(obj, f, indent=4, ensure_ascii=False)
             f.close()
