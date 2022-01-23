@@ -33,6 +33,7 @@ def find_keycodes(lines):
             keycode = line.split(",")[0]
 
         # {"name": "E./", "title": "E ACUTE", "shortName": "E_ACUTE"}
+        #TODO when vial supports unicode, redo this into proper unicode characters
         name = keycode.replace(" ", "")
         if "_ACUTE" in name:
             tempname = name.replace("_ACUTE", "")
