@@ -97,6 +97,11 @@
             "name": "..\nO",
             "title": "O UMLAU",
             "shortName": "O_UMLAU"
+        },
+        {
+            "name": "^\nO",
+            "title": "O CCIRC",
+            "shortName": "O_CCIRC"
         }
     ],
     "layouts": {
