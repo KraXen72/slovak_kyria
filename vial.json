@@ -87,6 +87,16 @@
             "name": "v\nN",
             "title": "N CARON",
             "shortName": "N_CARON"
+        },
+        {
+            "name": "..\nU",
+            "title": "U UMLAU",
+            "shortName": "U_UMLAU"
+        },
+        {
+            "name": "..\nO",
+            "title": "O UMLAU",
+            "shortName": "O_UMLAU"
         }
     ],
     "layouts": {

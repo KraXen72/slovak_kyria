@@ -40,6 +40,9 @@ def find_keycodes(lines):
         elif "_CARON" in name:
             tempname = name.replace("_CARON", "")
             name = "v\n" + tempname
+        elif "_UMLAU" in name:
+            tempname = name.replace("_UMLAU", "")
+            name = "..\n" + tempname
         
         formatted = {
             "name": name.replace(" ", ""),
