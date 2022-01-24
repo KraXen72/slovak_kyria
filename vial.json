@@ -102,6 +102,11 @@
             "name": "^\nO",
             "title": "O CCIRC",
             "shortName": "O_CCIRC"
+        },
+        {
+            "name": "SOME_KEY",
+            "title": "SOME KEY",
+            "shortName": "SOME_KEY"
         }
     ],
     "layouts": {
