@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "my_slovak_keymap.h"
+#include "custom_keys.h"
+#include "altlocal_keys.h"
 
 enum layers {
     _QWERTZ = 0,
@@ -10,27 +12,6 @@ enum layers {
     _ADJUST,
 };
 
-enum custom_keycodes {
-    E_ACUTE = /*SAFE_RANGE*/USER00,
-    R_ACUTE,
-    U_ACUTE,
-    I_ACUTE,
-    O_ACUTE,
-    A_ACUTE,
-    L_ACUTE,
-    Y_ACUTE,
-    T_CARON,
-    Z_CARON,
-    O_CARON,
-    S_CARON,
-    D_CARON,
-    L_CARON,
-    C_CARON,
-    N_CARON,
-    U_UMLAU,
-    O_UMLAU,
-    O_CCIRC,
-};
 
 // Aliases for readability
 #define QWERTZ   DF(_QWERTZ)
@@ -198,123 +179,126 @@ static inline void tap_accented_letter(uint16_t letter, uint16_t dead_key) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) {
-        case E_ACUTE:
-            if (record->event.pressed) {
-                tap_accented_letter(SK_E, SK_ACUT);
-            }
-            return false;
 
-        case R_ACUTE:
-            if (record->event.pressed) {
-                tap_accented_letter(SK_R, SK_ACUT);
-            }
-            return false;
+  if (!process_alt_local_key(keycode, record)) { return false; }
 
-        case U_ACUTE:
-            if (record->event.pressed) {
-                tap_accented_letter(SK_U, SK_ACUT);
-            }
-            return false;
-
-        case I_ACUTE:
-            if (record->event.pressed) {
-                tap_accented_letter(SK_I, SK_ACUT);
-            }
-            return false;
-
-        case O_ACUTE:
-            if (record->event.pressed) {
-                tap_accented_letter(SK_O, SK_ACUT);
-            }
-            return false;
-
-        case A_ACUTE:
-            if (record->event.pressed) {
-                tap_accented_letter(SK_A, SK_ACUT);
-            }
-            return false;
-
-        case L_ACUTE:
-            if (record->event.pressed) {
-                tap_accented_letter(SK_L, SK_ACUT);
-            }
-            return false;
-
-        case Y_ACUTE:
-            if (record->event.pressed) {
-                tap_accented_letter(SK_Z, SK_ACUT);
-            }
-            return false;
-
-        case T_CARON:
-            if (record->event.pressed) {
-                tap_accented_letter(SK_T, SK_CARN);
-            }
-            return false;
-
-        case Z_CARON:
-            if (record->event.pressed) {
-                tap_accented_letter(SK_Y, SK_CARN);
-            }
-            return false;
-
-        case O_CARON:
-            if (record->event.pressed) {
-                tap_accented_letter(SK_O, SK_CARN);
-            }
-            return false;
-
-        case S_CARON:
-            if (record->event.pressed) {
-                tap_accented_letter(SK_S, SK_CARN);
-            }
-            return false;
-
-        case D_CARON:
-            if (record->event.pressed) {
-                tap_accented_letter(SK_D, SK_CARN);
-            }
-            return false;
-
-        case L_CARON:
-            if (record->event.pressed) {
-                tap_accented_letter(SK_L, SK_CARN);
-            }
-            return false;
-
-        case C_CARON:
-            if (record->event.pressed) {
-                tap_accented_letter(SK_C, SK_CARN);
-            }
-            return false;
-
-        case N_CARON:
-            if (record->event.pressed) {
-                tap_accented_letter(SK_N, SK_CARN);
-            }
-            return false;
-
-        case U_UMLAU:
-            if (record->event.pressed) {
-                tap_accented_letter(SK_U, SK_DIAE);
-            }
-            return false;
-
-        case O_UMLAU:
-            if (record->event.pressed) {
-                tap_accented_letter(SK_O, SK_DIAE);
-            }
-            return false;
-
-        case O_CCIRC:
-            // napis o s vokanom cez vokan rather than normalne aby sa dalo velke uo
-            if (record->event.pressed) {
-                tap_accented_letter(SK_O, SK_CIRC);
-            }
-            return false;
+  switch (keycode) {
+  case E_ACUTE:
+    if (record->event.pressed) {
+      tap_accented_letter(SK_E, SK_ACUT);
     }
-    return true;
+    return false;
+
+  case R_ACUTE:
+    if (record->event.pressed) {
+      tap_accented_letter(SK_R, SK_ACUT);
+    }
+    return false;
+
+  case U_ACUTE:
+    if (record->event.pressed) {
+      tap_accented_letter(SK_U, SK_ACUT);
+    }
+    return false;
+
+  case I_ACUTE:
+    if (record->event.pressed) {
+      tap_accented_letter(SK_I, SK_ACUT);
+    }
+    return false;
+
+  case O_ACUTE:
+    if (record->event.pressed) {
+      tap_accented_letter(SK_O, SK_ACUT);
+    }
+    return false;
+
+  case A_ACUTE:
+    if (record->event.pressed) {
+      tap_accented_letter(SK_A, SK_ACUT);
+    }
+    return false;
+
+  case L_ACUTE:
+    if (record->event.pressed) {
+      tap_accented_letter(SK_L, SK_ACUT);
+    }
+    return false;
+
+  case Y_ACUTE:
+    if (record->event.pressed) {
+      tap_accented_letter(SK_Z, SK_ACUT);
+    }
+    return false;
+
+  case T_CARON:
+    if (record->event.pressed) {
+      tap_accented_letter(SK_T, SK_CARN);
+    }
+    return false;
+
+  case Z_CARON:
+    if (record->event.pressed) {
+      tap_accented_letter(SK_Y, SK_CARN);
+    }
+    return false;
+
+  case O_CARON:
+    if (record->event.pressed) {
+      tap_accented_letter(SK_O, SK_CARN);
+    }
+    return false;
+
+  case S_CARON:
+    if (record->event.pressed) {
+      tap_accented_letter(SK_S, SK_CARN);
+    }
+    return false;
+
+  case D_CARON:
+    if (record->event.pressed) {
+      tap_accented_letter(SK_D, SK_CARN);
+    }
+    return false;
+
+  case L_CARON:
+    if (record->event.pressed) {
+      tap_accented_letter(SK_L, SK_CARN);
+    }
+    return false;
+
+  case C_CARON:
+    if (record->event.pressed) {
+      tap_accented_letter(SK_C, SK_CARN);
+    }
+    return false;
+
+  case N_CARON:
+    if (record->event.pressed) {
+      tap_accented_letter(SK_N, SK_CARN);
+    }
+    return false;
+
+  case U_UMLAU:
+    if (record->event.pressed) {
+      tap_accented_letter(SK_U, SK_DIAE);
+    }
+    return false;
+
+  case O_UMLAU:
+    if (record->event.pressed) {
+      tap_accented_letter(SK_O, SK_DIAE);
+    }
+    return false;
+
+  case O_CCIRC:
+    // napis o s vokanom cez vokan rather than normalne aby sa dalo velke uo
+    if (record->event.pressed) {
+      tap_accented_letter(SK_O, SK_CIRC);
+    }
+    return false;
+  }
+  return true;
 }
 
 /* The default OLED and rotary encoder code can be found at the bottom of qmk_firmware/keyboards/splitkb/kyria/rev1/rev1.c

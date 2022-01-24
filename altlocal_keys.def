@@ -1,0 +1,29 @@
+// These are to create keys which don't exist in a locale.
+// so that we can create alternate maps to qwerty, azerty, or whatever.
+// Key name,
+// unshifted key and it's required mods.
+// the desired shifted keys and it's required mods.
+
+  MK_KEY(SOME_KEY,    KC_QUOT, MOD_LSFT,      KC_1, MOD_LSFT)
+
+/*
+  MK_KEY(DB_BSLS, BP_AGRV, MOD_BIT(KC_RALT), BP_B, MOD_BIT(KC_RALT))
+  MK_KEY(DB_EQL,  BP_EQL, MOD_NONE,       BP_PLUS, MOD_NONE)
+  MK_KEY(BQ_DOT,  KC_DOT, MOD_NONE,    KC_2, MOD_LSFT)
+  MK_KEY(BQ_COMM, KC_COMMA, MOD_NONE,  KC_1, MOD_LSFT)
+  MK_KEY(BQ_QUOT, KC_QUOT, MOD_NONE,   KC_GRV, MOD_NONE)
+  // Keys for BEAKL on BEPO
+  MK_KEY(BB_DOT,  BP_DOT, MOD_NONE,    BP_AT, MOD_NONE)
+  MK_KEY(BB_COMM, BP_COMM, MOD_NONE,   BP_EXLM, MOD_NONE)
+  MK_KEY(BB_QUOT, BP_QUOT, MOD_NONE,   BP_PERC, MOD_LSFT)
+  // Keys for BEAKL WI on Qwerty
+  MK_KEY(BBW_DOT,  KC_DOT, MOD_NONE,   KC_GRV, MOD_NONE)
+  MK_KEY(BBW_COMM, KC_COMM, MOD_NONE,  KC_TILD, MOD_NONE)
+  MK_KEY(BB_COLN, KC_SCLN, MOD_LSFT,   KC_SCLN, MOD_NONE)
+  // Keys for BEAKL WI on BEPO
+  MK_KEY(BBW_DOT,  BP_DOT, MOD_NONE,   BP_AT, MOD_NONE)
+  MK_KEY(BBW_COMM, BP_COMM, MOD_NONE,  DB_TILD, MOD_NONE)
+  MK_KEY(BB_COLN, BP_COLN, MOD_LSFT,   BP_SCLN, MOD_NONE)
+*/
+
+// shifted pairs: dot = .` comma = ,~  colon = :;
