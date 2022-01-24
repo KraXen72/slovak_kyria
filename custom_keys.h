@@ -18,6 +18,7 @@
 
 // not sure where this was defined. keeping it
 // because this is not mine.  - Eric.
+// thanks for keeping it, it's useful for vial, otherwise custom keycodes don't work there.
 #define USER00 SAFE_RANGE
 
 #include "keymap.h"
@@ -41,8 +42,9 @@ enum custom_keycodes {
   U_UMLAU,
   O_UMLAU,
   O_CCIRC,
-  // put alt local (odd unshifted and shifted pairs.) keys in here.
   ALT_LOCAL_KEYS_START,
   SOME_KEY,
   ALT_LOCAL_KEYS_END
 };
+
+// put alt local (odd unshifted and shifted pairs.) keys in here.
