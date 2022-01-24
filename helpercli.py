@@ -35,7 +35,9 @@ def find_keycodes(lines):
         # {"name": "E./", "title": "E ACUTE", "shortName": "E_ACUTE"}
         #TODO when vial supports unicode, redo this into proper unicode characters
         name = keycode.replace(" ", "")
-        if "_ACUTE" in name:
+        if "ALT_LOCAL_KEYS" in name:
+            continue
+        elif "_ACUTE" in name:
             tempname = name.replace("_ACUTE", "")
             name = "/\n" + tempname
         elif "_CARON" in name:
@@ -65,7 +67,7 @@ while command != "quit":
 
     match command:
         case "genkey": 
-            f = open("keymap.c", 'r', encoding='utf8')
+            f = open("custom_keys.h", 'r', encoding='utf8')
             lines = f.readlines()
             f.close()
 
@@ -82,3 +84,5 @@ while command != "quit":
             f = open("vial.json", 'w', encoding='utf8')
             json.dump(obj, f, indent=4, ensure_ascii=False)
             f.close()
+        case _:
+            print("this command does not exist.")
