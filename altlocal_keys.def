@@ -4,6 +4,7 @@
 // unshifted key and it's required mods.
 // the desired shifted keys and it's required mods.
 
+  //MK_KEY(ALT_LOCAL_KEYS_START, KC_NO, MOD_NONE, KC_NO, MOD_NONE)
   MK_KEY(KC_DEEZ, KC_D, MOD_NONE, KC_N, MOD_NONE)
 
 /*

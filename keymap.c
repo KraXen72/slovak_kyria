@@ -33,10 +33,11 @@ enum custom_keycodes {
   U_UMLAU,
   O_UMLAU,
   O_CCIRC,
-  ALT_LOCAL_KEYS_START,
   KC_DEEZ,
   ALT_LOCAL_KEYS_END
 };
+
+#define ALT_LOCAL_KEYS_START O_CCIRC
 
 // put alt local (odd unshifted and shifted pairs.) keys in here.
 // Aliases for readability
