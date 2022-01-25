@@ -193,10 +193,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     ),
 };
 
-
+/*
 uint8_t gr(uint16_t);
 void send_keycode(uint16_t);
 bool process_alt_local_key(uint16_t keycode, keyrecord_t* record);
+*/
 
 #define MOD_NONE 0x00
 
@@ -224,7 +225,7 @@ uint8_t gr(uint16_t kc){
 // remove the mods we are taking care of,
 // send our keycodes then restore them.
 // all so we can make dvorak keys from bepo keycodes.
-void send_keycode(uint16_t kc){
+static inline void send_keycode(uint16_t kc){
   uint8_t tmp_mods = get_mods();
   bool is_shifted = ( tmp_mods & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT)) );
 
@@ -258,7 +259,7 @@ static inline void tap_accented_letter(uint16_t letter, uint16_t dead_key) {
 
 
 // functional equivalent to case.
-bool process_alt_local_key(uint16_t keycode, keyrecord_t* record) {
+/*bool process_alt_local_key(uint16_t keycode, keyrecord_t* record) {
   switch(keycode){
   case ALT_LOCAL_KEYS_START+1 ... ALT_LOCAL_KEYS_END-1:
     if(record->event.pressed)
@@ -267,7 +268,7 @@ bool process_alt_local_key(uint16_t keycode, keyrecord_t* record) {
     break;
   }
   return (true);
-}
+}*/
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
