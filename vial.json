@@ -104,9 +104,9 @@
             "shortName": "O_CCIRC"
         },
         {
-            "name": "SOME_KEY",
-            "title": "SOME KEY",
-            "shortName": "SOME_KEY"
+            "name": "KC_DEEZ",
+            "title": "KC DEEZ",
+            "shortName": "KC_DEEZ"
         }
     ],
     "layouts": {

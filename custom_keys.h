@@ -20,7 +20,6 @@
 // because this is not mine.  - Eric.
 // thanks for keeping it, it's useful for vial, otherwise custom keycodes don't work there.
 #define USER00 SAFE_RANGE
-
 #include "keymap.h"
 enum custom_keycodes {
   E_ACUTE = /*SAFE_RANGE*/USER00,
@@ -43,7 +42,7 @@ enum custom_keycodes {
   O_UMLAU,
   O_CCIRC,
   ALT_LOCAL_KEYS_START,
-  SOME_KEY,
+  KC_DEEZ,
   ALT_LOCAL_KEYS_END
 };
 

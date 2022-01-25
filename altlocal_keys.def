@@ -4,7 +4,7 @@
 // unshifted key and it's required mods.
 // the desired shifted keys and it's required mods.
 
-  MK_KEY(SOME_KEY,    KC_QUOT, MOD_LSFT,      KC_1, MOD_LSFT)
+  MK_KEY(KC_DEEZ, KC_D, MOD_NONE, KC_N, MOD_NONE)
 
 /*
   MK_KEY(DB_BSLS, BP_AGRV, MOD_BIT(KC_RALT), BP_B, MOD_BIT(KC_RALT))
