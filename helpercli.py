@@ -204,7 +204,7 @@ while command != "quit":
 
     match command:
         case "genkey":
-            f = open("custom_keys.h", 'r', encoding='utf8')
+            f = open("keymap.c", 'r', encoding='utf8')
             lines = f.readlines()
             f.close()
 
