@@ -118,9 +118,20 @@ while command != "quit":
             
             layout["layers"] = obj["layout"]
 
-            #print(layout["layers"][0])
-            returned = array_to_keymap_row(layout["layers"][0][0], True)
-            print(">", returned, "<")
+            layer1 = layout["layers"][0]
+            keymap = []
+            for i in range(0, len(layer1)):
+                row = layer1[i]
+                if i >= keyboard_rows_per_half:
+                    lol = int(i - (keyboard_rows_per_half/2) - 2 )
+                    keymap[lol] += array_to_keymap_row(row, False)
+                else:
+                    keymap.append(array_to_keymap_row(row, True))
+                    
+            for i in keymap:
+                print(i)
+            #TODO replace with short aliases
+            #print(">", returned, "<")
 
         case "quit":
             quit()

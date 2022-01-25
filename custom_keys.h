@@ -19,7 +19,7 @@
 // not sure where this was defined. keeping it
 // because this is not mine.  - Eric.
 // thanks for keeping it, it's useful for vial, otherwise custom keycodes don't work there.
-#define USER00 SAFE_RANGE
+#define USER00 0x5F80//SAFE_RANGE
 #include "keymap.h"
 enum custom_keycodes {
   E_ACUTE = /*SAFE_RANGE*/USER00,
