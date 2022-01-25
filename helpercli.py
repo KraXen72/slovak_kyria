@@ -64,9 +64,22 @@ def find_keycodes(lines):
         keycodes.append(formatted)
     return keycodes
 
-def array_to_keymap_row(list):
-    pass
-    #TODO implement
+def array_to_keymap_row(arr, reverse):
+    if reverse:
+        work = reversed(arr)
+    else:
+        work = arr
+    string = ""
+
+    for keycode in work:
+        match keycode:
+            case -1:
+                string += "        "
+            case _:
+                string += f"{keycode:7}"
+                string += ","
+        string += " "
+    return string
 
 print("\n".join(commands))
 
@@ -105,9 +118,9 @@ while command != "quit":
             
             layout["layers"] = obj["layout"]
 
-            print(layout["layers"][0])
-
-
+            #print(layout["layers"][0])
+            returned = array_to_keymap_row(layout["layers"][0][0], True)
+            print(">", returned, "<")
 
         case "quit":
             quit()
