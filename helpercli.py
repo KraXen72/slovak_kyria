@@ -1,11 +1,16 @@
 import json
-from textwrap import indent
+
+#change this to match your keyboard. support for multiple keyboards soontm
+keyboard_cols_per_half = 8
+keyboard_rows_per_half = 4
+keyboard_halves = 2
 
 print("hello. this is KraXen's VIAL/QMK helper cli")
 print("the commands are: ")
 
 commands = [
     "genkey: generate vial customKeycodes from keymap.c",
+    "viltokey: convert a .vil vial file into c code",
     "--------------------",
     "quit: quit the app",
     "help: show this message"
@@ -59,6 +64,9 @@ def find_keycodes(lines):
         keycodes.append(formatted)
     return keycodes
 
+def array_to_keymap_row(list):
+    pass
+    #TODO implement
 
 print("\n".join(commands))
 
@@ -85,6 +93,22 @@ while command != "quit":
             f = open("vial.json", 'w', encoding='utf8')
             json.dump(obj, f, indent=4, ensure_ascii=False)
             f.close()
+        case "viltokey":
+            path = input("path to .vil file > ")
+            layout = {
+                "layers": []
+            }
+
+            f = open(path, 'r', encoding='utf8')
+            obj = json.load(f)
+            f.close()
+            
+            layout["layers"] = obj["layout"]
+
+            print(layout["layers"][0])
+
+
+
         case "quit":
             quit()
         case "help":
