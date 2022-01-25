@@ -1,4 +1,4 @@
-SRC += altlocal_keys.c
+#SRC += altlocal_keys.c
 
 OLED_ENABLE = no
 #OLED_DRIVER = SSD1306   # Enables the use of OLED displays

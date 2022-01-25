@@ -1,7 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "my_slovak_keymap.h"
-#include "custom_keys.h"
-#include "altlocal_keys.h"
 
 enum layers {
     _QWERTZ = 0,
@@ -13,6 +11,34 @@ enum layers {
 };
 
 
+#define USER00 0x5F80 // this is important so vial can recognize these keys
+#include "keymap.h"
+enum custom_keycodes {
+  E_ACUTE = /*SAFE_RANGE*/USER00,
+  R_ACUTE,
+  U_ACUTE,
+  I_ACUTE,
+  O_ACUTE,
+  A_ACUTE,
+  L_ACUTE,
+  Y_ACUTE,
+  T_CARON,
+  Z_CARON,
+  O_CARON,
+  S_CARON,
+  D_CARON,
+  L_CARON,
+  C_CARON,
+  N_CARON,
+  U_UMLAU,
+  O_UMLAU,
+  O_CCIRC,
+  ALT_LOCAL_KEYS_START,
+  KC_DEEZ,
+  ALT_LOCAL_KEYS_END
+};
+
+// put alt local (odd unshifted and shifted pairs.) keys in here.
 // Aliases for readability
 #define QWERTZ   DF(_QWERTZ)
 #define ACCENTS  OSL(_ACCENTS)
@@ -167,6 +193,58 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     ),
 };
 
+
+uint8_t gr(uint16_t);
+void send_keycode(uint16_t);
+bool process_alt_local_key(uint16_t keycode, keyrecord_t* record);
+
+#define MOD_NONE 0x00
+
+#define GR(x) (x-SAFE_RANGE/*0x5F80*/)
+// indexs for the keycode translation table.
+
+
+#define MK_KEY(KCNAME, KC1, MOD1, KC2, MOD2)    \
+  [GR(KCNAME)] = {{KC1, MOD1}, {KC2, MOD2}},
+
+const uint16_t key_translations[][2][2] = {
+#include "altlocal_keys.def"
+};
+
+#define UNSHIFTED_KEY(key)  key_translations[gr(key)][0][0]
+#define UNSHIFTED_MODS(key) key_translations[gr(key)][0][1]
+#define SHIFTED_KEY(key)    key_translations[gr(key)][1][0]
+#define SHIFTED_MODS(key)   key_translations[gr(key)][1][1]
+
+uint8_t gr(uint16_t kc){
+  return (kc - SAFE_RANGE/*0x5F80*/);
+}
+
+// send the right keycode for the right mod.
+// remove the mods we are taking care of,
+// send our keycodes then restore them.
+// all so we can make dvorak keys from bepo keycodes.
+void send_keycode(uint16_t kc){
+  uint8_t tmp_mods = get_mods();
+  bool is_shifted = ( tmp_mods & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT)) );
+
+  // need to turn of the shift if it is on.
+  unregister_mods((MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT)));
+  if(is_shifted){
+    register_mods(SHIFTED_MODS(kc));
+    register_code(SHIFTED_KEY(kc));
+    unregister_code(SHIFTED_KEY(kc));
+    unregister_mods(SHIFTED_MODS(kc));
+  } else{
+    register_mods(UNSHIFTED_MODS(kc));
+    register_code(UNSHIFTED_KEY(kc));
+    unregister_code(UNSHIFTED_KEY(kc));
+    unregister_mods(UNSHIFTED_MODS(kc));
+  }
+  clear_mods();
+  register_mods(tmp_mods);
+}
+
 static inline void tap_accented_letter(uint16_t letter, uint16_t dead_key) {
     uint8_t mod_state = get_mods();
     uint8_t oneshot_mod_state = get_oneshot_mods();
@@ -178,11 +256,32 @@ static inline void tap_accented_letter(uint16_t letter, uint16_t dead_key) {
     tap_code(letter);
 }
 
+
+// functional equivalent to case.
+bool process_alt_local_key(uint16_t keycode, keyrecord_t* record) {
+  switch(keycode){
+  case ALT_LOCAL_KEYS_START+1 ... ALT_LOCAL_KEYS_END-1:
+    if(record->event.pressed)
+      send_keycode(keycode);
+    unregister_code(keycode);
+    break;
+  }
+  return (true);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
-  if (!process_alt_local_key(keycode, record)) { return false; }
+  // if (!process_alt_local_key(keycode, record)) { return false; }
 
   switch (keycode) {
+
+  case ALT_LOCAL_KEYS_START+1 ... ALT_LOCAL_KEYS_END-1:
+    if(record->event.pressed){
+      send_keycode(keycode);
+    unregister_code(keycode);
+    }
+    return false;
+
   case E_ACUTE:
     if (record->event.pressed) {
       tap_accented_letter(SK_E, SK_ACUT);
