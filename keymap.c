@@ -200,7 +200,7 @@ bool process_alt_local_key(uint16_t keycode, keyrecord_t* record);
 
 #define MOD_NONE 0x00
 
-#define GR(x) (x-SAFE_RANGE/*0x5F80*/)
+#define GR(x) (x-/*SAFE_RANGE*/0x5F80)
 // indexs for the keycode translation table.
 
 
@@ -217,7 +217,7 @@ const uint16_t key_translations[][2][2] = {
 #define SHIFTED_MODS(key)   key_translations[gr(key)][1][1]
 
 uint8_t gr(uint16_t kc){
-  return (kc - SAFE_RANGE/*0x5F80*/);
+  return (kc - /*SAFE_RANGE*/0x5F80);
 }
 
 // send the right keycode for the right mod.
