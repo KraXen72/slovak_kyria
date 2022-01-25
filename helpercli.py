@@ -1,13 +1,14 @@
 import json
 from textwrap import indent
 
-
-
 print("hello. this is KraXen's VIAL/QMK helper cli")
 print("the commands are: ")
 
 commands = [
-    "genkey: generate vial customKeycodes from keymap.c"
+    "genkey: generate vial customKeycodes from keymap.c",
+    "--------------------",
+    "quit: quit the app",
+    "help: show this message"
 ]
 
 def find_keycodes(lines):
@@ -84,5 +85,11 @@ while command != "quit":
             f = open("vial.json", 'w', encoding='utf8')
             json.dump(obj, f, indent=4, ensure_ascii=False)
             f.close()
+        case "quit":
+            quit()
+        case "help":
+            print("available commands:")
+            for line in commands:
+                print(line)
         case _:
             print("this command does not exist.")
