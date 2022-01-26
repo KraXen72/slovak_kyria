@@ -1,7 +1,5 @@
 # Slovak Kyria Keymap & KraXen's qmk setup
 
-[![kyria typing test](https://img.youtube.com/vi/jbK86MmciDs/0.jpg)](https://www.youtube.com/watch?v=jbK86MmciDs)
-
 Proof-of-concept keymap for typing in Slovakian on a Kyria.
 
 Precondition: I don't speak Slovakian nor do I own a Kyria myself.  
@@ -17,3 +15,5 @@ me: correction: I **do** speak Slovak and I **do** own a Kyria myself.
 Huge thanks to the people mentioned below:
 - [**precondition**](https://github.com/precondition) for making a layer with accented characters & setting up it's macro system
 - [**Eric Gebhart**](https://github.com/EricGebhart) for implementing his altlocal system into my existing enviroment, so i can have us keys on sk keymap
+  
+if anyone is interested here is a [typing test](https://www.youtube.com/watch?v=jbK86MmciDs)
