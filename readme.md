@@ -1,6 +1,6 @@
 # Slovak Kyria Keymap & KraXen's qmk setup
 
-https://www.youtube.com/watch?v=jbK86MmciDs
+[![kyria typing test](https://img.youtube.com/vi/jbK86MmciDs)](https://www.youtube.com/watch?v=jbK86MmciDs)
 
 Proof-of-concept keymap for typing in Slovakian on a Kyria.
 
