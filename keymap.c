@@ -222,6 +222,9 @@ uint8_t gr(uint16_t kc){
   return (kc - /*SAFE_RANGE*/0x5F80);
 }
 
+// update this value if we're using more than 255 altlocal keys
+//bool key_tracker[0xFF] = 0
+
 // send the right keycode for the right mod.
 // remove the mods we are taking care of,
 // send our keycodes then restore them.

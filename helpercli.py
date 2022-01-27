@@ -67,6 +67,38 @@ def find_keycodes(lines):
             "shortName": keycode.replace(" ", "")
         }
         keycodes.append(formatted)
+
+    # add my customKeys i use in lwm and obs
+    # overrides = [
+    #     {
+    #         "name": "lwm:\nhide all",
+    #         "title": "C(LGUI(KC_KP_0))",
+    #         "shortName": "2402" #0x962
+    #     },
+    #     {
+    #         "name": "lwm:\ndiscord",
+    #         "title": "C(LGUI(KC_KP_1))",
+    #         "shortName": "2393" #0x959
+    #     },
+    #     {
+    #         "name": "lwm:\ndisc+aimp",
+    #         "title": "C(LGUI(KC_KP_2))",
+    #         "shortName": "2394" #0x95A
+    #     },
+    #     {
+    #         "name": "lwm:\nteams",
+    #         "title": "C(LGUI(KC_KP_3))",
+    #         "shortName": "2395" #0x95B
+    #     },
+    #     {
+    #         "name": "obs:\nfreeze cam",
+    #         "title": "C(LGUI(KC_KP_4))",
+    #         "shortName": "2396" #0x95C
+    #     }
+    # ]
+    # for over in overrides:
+    #     keycodes.append(over)
+    
     return keycodes
 
 def filterFunc(x):
@@ -167,6 +199,8 @@ def array_to_keymap_row(arr, reverse, lib):
                 string += "        "
             case "KC_TRNS":
                 string += "_______,"
+            case "KC_NO":
+                string += "XXXXXXX,"
             case _:
                 try:
                     # shorten long keycodes
