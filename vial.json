@@ -107,31 +107,6 @@
             "name": "KC_DEEZ",
             "title": "KC DEEZ",
             "shortName": "KC_DEEZ"
-        },
-        {
-            "name": "lwm:\nhide all",
-            "title": "C(LGUI(KC_KP_0))",
-            "shortName": "2402"
-        },
-        {
-            "name": "lwm:\ndiscord",
-            "title": "C(LGUI(KC_KP_1))",
-            "shortName": "2393"
-        },
-        {
-            "name": "lwm:\ndisc+aimp",
-            "title": "C(LGUI(KC_KP_2))",
-            "shortName": "2394"
-        },
-        {
-            "name": "lwm:\nteams",
-            "title": "C(LGUI(KC_KP_3))",
-            "shortName": "2395"
-        },
-        {
-            "name": "obs:\nfreeze cam",
-            "title": "C(LGUI(KC_KP_4))",
-            "shortName": "2396"
         }
     ],
     "layouts": {
