@@ -293,6 +293,9 @@ def read_config(config_file_path, add_extra_glyphs):
         legends["KC_PSCREEN"] = "<i class='fa fa-scissors'></i>"
 
         legends["2399"] = "<i class='fa fa-microphone-slash'></i>" # ctrl + lgui + numpad 7, my custom macro for mic in ahk
+        legends["RGUI(KC_SPACE)"] = "<i class='fa fa-windows'></i> <i class='fa fa-globe'></i>" # win + space changes language
+        legends["LGUI(KC_L)"] = "<i class='fa fa-windows'></i> <i class='kb kb-Unicode-Lock-Closed-1'></i>" # win + l locks the 
+
 
     if config_file_path:
         config = configparser.ConfigParser()
