@@ -37,6 +37,44 @@ SK_7 = 7
 SK_8 = 8
 SK_9 = 9
 
+KC_A = A
+KC_B = B
+KC_C = C
+KC_D = D
+KC_E = E
+KC_F = F
+KC_G = G
+KC_H = H
+KC_I = I
+KC_J = J
+KC_K = K
+KC_L = L
+KC_M = M
+KC_N = N
+KC_O = O
+KC_P = P
+KC_Q = Q
+KC_R = R
+KC_S = S
+KC_T = T
+KC_U = U
+KC_V = V
+KC_W = W
+KC_X = X
+KC_Y = Y
+KC_Z = Z
+
+KC_0 = 0
+KC_1 = 1
+KC_2 = 2
+KC_3 = 3
+KC_4 = 4
+KC_5 = 5
+KC_6 = 6
+KC_7 = 7
+KC_8 = 8
+KC_9 = 9
+
 U_EXLM = !
 KC_EXLM = !
 U_QUES = ? !
@@ -303,3 +341,31 @@ STN_E = -E
 STN_U = -U
 
 SH_OS = SWAPHNDS
+
+U_UMLAU = Ü
+O_UMLAU = Ö
+O_CCIRC = Ô
+RALT(KC_QUOTE) = ß
+
+S(KC_GRAVE) = ~
+S(KC_0) = !
+S(KC_1) = @
+S(KC_2) = #
+S(KC_3) = $
+S(KC_4) = %
+S(KC_5) = ^
+S(KC_6) = &
+S(KC_7) = *
+S(KC_8) = (
+S(KC_9) = )
+S(KC_MINUS) = _
+S(KC_EQUAL) = +
+S(KC_LBRACKET) = {
+S(KC_RBRACKET) = }
+S(KC_COMMA) = <
+S(KC_DOT) = >
+S(KC_SCOLON) = :
+S(KC_BSLASH) = |
+S(KC_SLASH) = ?
+S(KC_QUOTE) = "
+
