@@ -1,11 +1,6 @@
 # Slovak Kyria Keymap & KraXen's qmk setup
-
-Proof-of-concept keymap for typing in Slovakian on a Kyria.
-
-Precondition: I don't speak Slovakian nor do I own a Kyria myself.  
-me: correction: I **do** speak Slovak and I **do** own a Kyria myself.
-> proper readme once i finish my immediate qmk todo
-
+![keymap](keymap.png) 
+  
 # Explanation of files:
 - ``commands.txt`` just my personal commands for compiling.
 - ``helpercli.py`` a python helper cli. uses below
@@ -46,6 +41,8 @@ this will download latest qmk keycode alias definitions. useful when generating 
   
 
 # Credits
+this started as a proof-of-concept keymap for typing in Slovak on a Kyria.  
+ [**precondition**](https://github.com/precondition), who doesen't speak Slovak nor own a Kyria himself.  
 Huge thanks to the people mentioned below:
 - [**precondition**](https://github.com/precondition) for making a layer with accented characters & setting up it's macro system
 - [**Eric Gebhart**](https://github.com/EricGebhart) for implementing his altlocal system into my existing enviroment, so i can have us keys on sk keymap
