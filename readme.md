@@ -42,7 +42,7 @@ this will download latest qmk keycode alias definitions. useful when generating 
 
 # Credits
 this started as a proof-of-concept keymap for typing in Slovak on a Kyria.  
- [**precondition**](https://github.com/precondition), who doesen't speak Slovak nor own a Kyria himself.  
+it was made by [**precondition**](https://github.com/precondition), who doesen't speak Slovak nor own a Kyria himself.  
 Huge thanks to the people mentioned below:
 - [**precondition**](https://github.com/precondition) for making a layer with accented characters & setting up it's macro system
 - [**Eric Gebhart**](https://github.com/EricGebhart) for implementing his altlocal system into my existing enviroment, so i can have us keys on sk keymap
