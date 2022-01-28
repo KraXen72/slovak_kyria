@@ -12,7 +12,7 @@ me: correction: I **do** speak Slovak and I **do** own a Kyria myself.
 - ``my_slovak_keymap.h`` patched version of the qmk slovak keymap that doesen't define one thing twice (soon to be merged into qmk)
 
 # helpercli.py
-a python script to automate do various manual tasks
+a python script to automate do various manual tasks that have somethign to do with [vial](https://get.vial.today)  
 <details>
 <summary>genkey: generate vial customKeycodes from keymap.c</summary>
   
