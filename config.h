@@ -31,7 +31,7 @@
 // #define MOUSEKEY_INTERVAL 16
 
 // #define MOUSEKEY_DELAY 0
-// #define MOUSEKEY_TIME_TO_MAX 60
+// #define MOUSEKEY_TIME_TO_MAX 60S
 // #define MOUSEKEY_MAX_SPEED 7
 // #define MOUSEKEY_WHEEL_DELAY 0
  
@@ -39,11 +39,31 @@
 #undef LOCKING_RESYNC_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
+#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 #    define RGBLIGHT_EFFECT_STATIC_GRADIENT
+//#    define RGBLIGHT_SPLIT //try out split rgb thing
+
 #    define RGBLIGHT_HUE_STEP 8
 #    define RGBLIGHT_SAT_STEP 8
 #    define RGBLIGHT_VAL_STEP 8
 #    define RGBLIGHT_LIMIT_VAL 150
+
+#    define RGBLIGHT_LAYERS
+#    define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+// rgb matrix modes. cycle these with RGB_MOD
+#    define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+#    define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
+#    define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
+
+#    define SPLIT_LAYER_STATE_ENABLE
+#    define SPLIT_LED_STATE_ENABLE
+//#    undef SPLIT_TRANSPORT_MIRROR
+
+#    define VIALRGB_NO_DIRECT
 #endif
 
 #define MASTER_LEFT

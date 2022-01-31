@@ -1,11 +1,13 @@
 OLED_ENABLE = no
 #OLED_DRIVER = SSD1306   # Enables the use of OLED displays
 ENCODER_ENABLE = no       # Enables the use of one or more encoders
-RGBLIGHT_ENABLE = yes      # Enable keyboard RGB underglow
+RGBLIGHT_ENABLE = no      # Enable keyboard RGB underglow
+RGB_MATRIX_ENABLE = yes
 VIA_ENABLE = yes
 VIAL_ENABLE = yes
 VIAL_ENCODERS_ENABLE = no
 VIAL_INSECURE = yes
+VIALRGB_ENABLE = yes
 
 #turn any of these on if needed
 KEY_LOCK_ENABLE = no

@@ -10,52 +10,29 @@ enum layers {
     _ADJUST,
 };
 
-
-#define USER00 0x5F80 // this is important so vial can recognize these keys
+#define USER00 0x5F80  // this is important so vial can recognize these keys
 #include "keymap.h"
-enum custom_keycodes {
-  E_ACUTE = /*SAFE_RANGE*/USER00,
-  R_ACUTE,
-  U_ACUTE,
-  I_ACUTE,
-  O_ACUTE,
-  A_ACUTE,
-  L_ACUTE,
-  Y_ACUTE,
-  T_CARON,
-  Z_CARON,
-  O_CARON,
-  S_CARON,
-  D_CARON,
-  L_CARON,
-  C_CARON,
-  N_CARON,
-  U_UMLAU,
-  O_UMLAU,
-  O_CCIRC,
-  KC_DEEZ,
-  ALT_LOCAL_KEYS_END
-};
+enum custom_keycodes { E_ACUTE = /*SAFE_RANGE*/ USER00, R_ACUTE, U_ACUTE, I_ACUTE, O_ACUTE, A_ACUTE, L_ACUTE, Y_ACUTE, T_CARON, Z_CARON, O_CARON, S_CARON, D_CARON, L_CARON, C_CARON, N_CARON, U_UMLAU, O_UMLAU, O_CCIRC, KC_DEEZ, ALT_LOCAL_KEYS_END };
 
 #define ALT_LOCAL_KEYS_START O_CCIRC
 
 // put alt local (odd unshifted and shifted pairs.) keys in here.
 // Aliases for readability
-#define QWERTZ   DF(_QWERTZ)
-#define ACCENTS  OSL(_ACCENTS)
-#define SYM      MO(_SYM)
-#define NAV      MO(_NAV)
-#define FKEYS    MO(_FUNCTION)
-#define ADJUST   MO(_ADJUST)
+#define QWERTZ DF(_QWERTZ)
+#define ACCENTS OSL(_ACCENTS)
+#define SYM MO(_SYM)
+#define NAV MO(_NAV)
+#define FKEYS MO(_FUNCTION)
+#define ADJUST MO(_ADJUST)
 
-#define CTL_ESC  MT(MOD_LCTL, KC_ESC)
+#define CTL_ESC MT(MOD_LCTL, KC_ESC)
 #define CTL_QUOT MT(MOD_RCTL, SK_SECT)
-#define ALT_ENT  MT(MOD_LALT, KC_ENT)
+#define ALT_ENT MT(MOD_LALT, KC_ENT)
 
-#define A_DIA   SK_ADIA
-#define O_CIRC  SK_OCIR
+#define A_DIA SK_ADIA
+#define O_CIRC SK_OCIR
 
-//these layers don't really matter rn because i overwrite them in vial. check v14.vil for more info until i make a script to hardcode the layout here bc it's better than using EEPROM for layout
+// these layers don't really matter rn because i overwrite them in vial. check v14.vil for more info until i make a script to hardcode the layout here bc it's better than using EEPROM for layout
 
 // Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
 // The notation `mod/tap` denotes a key that activates the modifier `mod` when held down, and
@@ -429,7 +406,7 @@ bool oled_task_user(void) {
 
         // Host Keyboard Layer Status
         oled_write_P(PSTR("Layer: "), false);
-        switch (get_highest_layer(layer_state|default_layer_state)) {
+        switch (get_highest_layer(layer_state | default_layer_state)) {
             case _QWERTZ:
                 oled_write_P(PSTR("QWERTZ\n"), false);
                 break;
@@ -454,8 +431,8 @@ bool oled_task_user(void) {
 
         // Write host Keyboard LED Status to OLEDs
         led_t led_usb_state = host_keyboard_led_state();
-        oled_write_P(led_usb_state.num_lock    ? PSTR("NUMLCK ") : PSTR("       "), false);
-        oled_write_P(led_usb_state.caps_lock   ? PSTR("CAPLCK ") : PSTR("       "), false);
+        oled_write_P(led_usb_state.num_lock ? PSTR("NUMLCK ") : PSTR("       "), false);
+        oled_write_P(led_usb_state.caps_lock ? PSTR("CAPLCK ") : PSTR("       "), false);
         oled_write_P(led_usb_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
     } else {
         // clang-format off
@@ -478,7 +455,6 @@ bool oled_task_user(void) {
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
-
     if (index == 0) {
         // Volume control
         if (clockwise) {
@@ -498,13 +474,41 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 }
 #endif
 
-//key overrides by kraXen
-//const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL); //ctrl + backspace = delete
-const key_override_t redo_key_override = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, KC_ESCAPE, LCTL(KC_Y), ~0, MOD_MASK_SHIFT);  //ctrl + escape = ctrl + y for quick redo when editing something
+// key overrides by kraXen
+// const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL); //ctrl + backspace = delete
+const key_override_t redo_key_override = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, KC_ESCAPE, LCTL(KC_Y), ~0, MOD_MASK_SHIFT);  // ctrl + escape = ctrl + y for quick redo when editing something
 
 // This globally defines all key overrides to be used
 const key_override_t **key_overrides = (const key_override_t *[]){
-	//&delete_key_override,
+    //&delete_key_override,
     &redo_key_override,
-	NULL // Null terminate the array of overrides!
+    NULL  // Null terminate the array of overrides!
 };
+
+#ifdef RGB_MATRIX_ENABLE
+// wait until https://github.com/qmk/qmk_firmware/pull/15985 gets merged, then i can remove the is keyboard left checks
+void rgb_matrix_indicators_user(void) {
+    if (host_keyboard_led_state().caps_lock) {
+        if (is_keyboard_left()) {
+            rgb_matrix_set_color(8, RGB_WHITE);
+        }
+    }
+
+    switch (get_highest_layer(layer_state | default_layer_state)) {
+        case _NAV:
+            if (is_keyboard_left()) {
+                rgb_matrix_set_color(0, RGB_RED);
+                rgb_matrix_set_color(1, RGB_RED);
+            }
+            break;
+        case _SYM:
+            if (!is_keyboard_left()) {
+                rgb_matrix_set_color(10, RGB_GREEN);
+                rgb_matrix_set_color(11, RGB_GREEN);
+            }
+            break;
+        default:
+            break;
+    }
+}
+#endif

@@ -6,7 +6,7 @@
         "rows": 8,
         "cols": 8
     },
-    "lighting": "qmk_rgblight",
+    "lighting": "vialrgb",
     "customKeycodes": [
         {
             "name": "/\nE",
