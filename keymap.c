@@ -37,8 +37,8 @@ enum custom_keycodes { E_ACUTE = /*SAFE_RANGE*/ USER00, R_ACUTE, U_ACUTE, I_ACUT
 //eurkey. requires you have https://eurkey.steffen.bruentjen.eu/layout.html (tested with eurkey 1.3)
 #define A_DIA	RALT(KC_A)
 #define SHARP_S RALT(KC_S)
-#define AC_ACUT	RALT(QUOTE)
-#define AC_DIAE	RALT(S(QUOTE))
+#define AC_ACUT	RALT(KC_QUOTE)
+#define AC_DIAE	RALT(S(KC_QUOTE))
 #define AC_CARN RALT(S(KC_6))
 #define AC_CIRC RALT(KC_6)
 
