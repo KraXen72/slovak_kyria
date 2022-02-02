@@ -12,7 +12,30 @@ enum layers {
 
 #define USER00 0x5F80  // this is important so vial can recognize these keys
 #include "keymap.h"
-enum custom_keycodes { E_ACUTE = /*SAFE_RANGE*/ USER00, R_ACUTE, U_ACUTE, I_ACUTE, O_ACUTE, A_ACUTE, A_DIA, L_ACUTE, Y_ACUTE, T_CARON, Z_CARON, O_CARON, S_CARON, D_CARON, L_CARON, C_CARON, N_CARON, U_UMLAU, O_UMLAU, O_CCIRC, KC_DEEZ, ALT_LOCAL_KEYS_END };
+enum custom_keycodes { 
+  E_ACUTE = /*SAFE_RANGE*/ USER00, 
+  R_ACUTE, 
+  U_ACUTE, 
+  I_ACUTE, 
+  O_ACUTE, 
+  A_ACUTE, 
+  A_DIA, 
+  L_ACUTE, 
+  Y_ACUTE, 
+  T_CARON, 
+  Z_CARON, 
+  O_CARON, 
+  S_CARON, 
+  D_CARON, 
+  L_CARON, 
+  C_CARON, 
+  N_CARON, 
+  U_UMLAU, 
+  O_UMLAU, 
+  O_CCIRC, 
+  KC_DEEZ, 
+  ALT_LOCAL_KEYS_END 
+};
 
 #define ALT_LOCAL_KEYS_START O_CCIRC
 

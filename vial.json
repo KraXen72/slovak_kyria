@@ -39,6 +39,11 @@
             "shortName": "A_ACUTE"
         },
         {
+            "name": "..\nA",
+            "title": "A DIA",
+            "shortName": "A_DIA"
+        },
+        {
             "name": "/\nL",
             "title": "L ACUTE",
             "shortName": "L_ACUTE"
