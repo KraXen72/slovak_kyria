@@ -1,5 +1,7 @@
 # Slovak Kyria Keymap & KraXen's qmk setup
 ![keymap](keymap.png) 
+
+> the sym (green) layer is bugged, homerow is shifted to the left on pic whereas in reality it starts with ! on the left
   
 # Explanation of files:
 - ``commands.txt`` just my personal commands for compiling.
