@@ -559,3 +559,13 @@ void rgb_matrix_indicators_user(void) {
     }
 }
 #endif
+
+//tapping term: make the right enter be almost exclusively a lt
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(5, KC_ENTER):
+            return 168;
+        default:
+            return TAPPING_TERM;
+    }
+}
