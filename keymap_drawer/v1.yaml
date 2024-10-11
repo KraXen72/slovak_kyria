@@ -5,18 +5,22 @@ layers:
   DEF:
     - [$$mdi:keyboard-tab$$, Q, W, E, R, T, Y, U, I, O, P,{t: "", type: trans}]
     - [Ctrl, A, S, D, F, G, H, J, K, L, ";", "'"]
-    - [Shift, Z, X, C, V, B, {t: "", type: trans}, $$mdi:keyboard-caps$$, FN, {t: "", type: trans}, N, M, ",", ., "/",{t: "", type: trans}]
+    - [$$mdi:apple-keyboard-shift$$, Z, X, C, V, B, {t: "", type: trans}, $$mdi:keyboard-caps$$, FN, {t: "", type: trans}, N, M, ",", ., "/",{t: "", type: trans}]
     - [Esc, $$mdi:view-grid$$, {t: $$mdi:backspace-reverse-outline$$, h: Alt }, $$mdi:backspace-outline$$, NAV, SYM, $$mdi:keyboard-space$$, $$mdi:keyboard-return$$, NAV, RAlt]
   SYM:
     - ["`", 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, $$mdi:backspace-outline$$]
     - ["@", "!", "|", "[", "]", "-", "=", "(",")","&", '#', "%"]
     - ["~", "\\", "*", "{", "}", "_", {t: "", type: trans}, {t: "", type: trans}, {t: "", type: trans}, {t: "", type: trans}, "+", "<", ">", "$", "/", "^"]
-    - [{t: "", type: trans}, {t: "", type: trans}, {t: "", type: trans}, {t: "", type: trans}, {t: "", type: trans}, {t: "", type: trans}, Shift, Ctrl, {t: "", type: trans}, {t: "", type: trans}]
+    - [{t: "", type: trans}, {t: "", type: trans}, {t: "", type: trans}, {t: "", type: trans}, {t: "", type: trans}, {t: "", type: trans}, $$mdi:apple-keyboard-shift$$, Ctrl, {t: "", type: trans}, {t: "", type: trans}]
 draw_config:
   dark_mode: true
+  glyph_tap_size: 20
   svg_extra_style: |
     .trans,
     .none,
     .trans {
       opacity: 0.6;
+    }
+    svg.keymap {
+      font-size: 18px;
     }
