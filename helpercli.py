@@ -16,16 +16,16 @@ from urllib.request import urlopen
 
 import click
 
-# ── keyboard geometry (adapt if you change boards) ───────────────────────────
+# keyboard geometry (adapt if you change boards) 
 ROWS_PER_HALF = 4
 
-# ── paths (relative to cwd — run from keyboards/splitkb/kyria/keymaps/slovak_kyria/) ──
+# paths (relative to cwd — run from keyboards/splitkb/kyria/keymaps/slovak_kyria/) 
 VIALSAVES_DIR  = Path("vialsaves")
 KEYCODEDB_PATH = VIALSAVES_DIR / "keycodedb.json"
 KEYMAP_C       = Path("keymap.c")
 VIAL_JSON      = Path("vial.json")
 
-# ── QMK keycode sources (pinned commit for reproducibility) ──────────────────
+# QMK keycode sources (pinned commit for reproducibility) 
 _QMK_BASE = "https://rawcdn.githack.com/qmk/qmk_firmware/ca10e4d07579ae85c6720fdd3db3a0bfb5ebff36/quantum"
 _KEYCODE_SOURCES = [
     # (url, seek_past_marker)
@@ -33,14 +33,14 @@ _KEYCODE_SOURCES = [
     (f"{_QMK_BASE}/keycode_legacy.h", None),
 ]
 
-# ── user mod-tap aliases — add yours here ────────────────────────────────────
+# user mod-tap aliases — add yours here 
 _MODTAP_DEFINES = [
     "#define CTL_ESC  MT(MOD_LCTL,KC_ESC)",
     "#define CTL_QUOT MT(MOD_RCTL,SK_SECT)",
     "#define ALT_ENT  MT(MOD_LALT,KC_ENT)",
 ]
 
-# ── diacritic display suffixes for Slovak custom keycodes ────────────────────
+# diacritic display suffixes for Slovak custom keycodes 
 _DIACRITIC_SUFFIXES: list[tuple[str, str]] = [
     ("ACUTE", "´"),
     ("CARON", "v"),
@@ -50,9 +50,7 @@ _DIACRITIC_SUFFIXES: list[tuple[str, str]] = [
 ]
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # shared helpers
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _parse_define_lines(raw_lines: list[str]) -> list[tuple[str, str]]:
     """Return (short, long) alias pairs from C #define lines, skipping comments."""
@@ -71,16 +69,14 @@ def _run(args: list[str], **kwargs) -> subprocess.CompletedProcess:
     return subprocess.run(args, **kwargs)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
 # CLI
-# ─────────────────────────────────────────────────────────────────────────────
 
 @click.group()
 def cli():
     """KraXen's vial-qmk helper — run from your keymap folder."""
 
 
-# ── genkey ───────────────────────────────────────────────────────────────────
+# genkey 
 
 @cli.command()
 def genkey():
@@ -125,7 +121,7 @@ def genkey():
     click.echo(f"wrote {len(keycodes)} customKeycodes -> {VIAL_JSON}")
 
 
-# ── fetchkeys ─────────────────────────────────────────────────────────────────
+# fetchkeys 
 
 @cli.command()
 def fetchkeys():
@@ -156,7 +152,7 @@ def fetchkeys():
     click.echo(f"wrote {len(lib)} aliases -> {KEYCODEDB_PATH}")
 
 
-# ── viltokey ──────────────────────────────────────────────────────────────────
+# viltokey 
 
 @cli.command()
 @click.argument("vil_file", type=click.Path(exists=True, path_type=Path))
@@ -213,7 +209,7 @@ def viltokey(vil_file: Path):
     click.echo("// clang-format on")
 
 
-# ── vis ───────────────────────────────────────────────────────────────────────
+# vis 
 
 @cli.command(context_settings={"ignore_unknown_options": True, "allow_extra_args": True})
 @click.argument("vtk_args", nargs=-1, type=click.UNPROCESSED)
