@@ -1,238 +1,323 @@
-# Kyria legacy firmware development and recovery plan
+# Kyria legacy firmware development plan
 
-## Recommendation
+## Goal
 
-Use a plain `Containerfile` for compilation, keep flashing on the Windows host,
-and treat the existing 2022 artifacts—not a live firmware dump—as the recovery
-baseline.
+Create a low-maintenance development environment for the existing Kyria rev1
+firmware on Elite-C/ATmega32U4 controllers. It must:
 
-The live-dump idea is understandable, but mostly overkill and potentially
-unsafe. `dfu-programmer` supports dumping flash, but its documentation warns
-that the default Atmel DFU security policy commonly prevents firmware
-extraction. If dumping fails, do not erase the controller merely to enable
-access: that would destroy the firmware we are trying to preserve.
+- build the legacy Vial-QMK firmware used with Vial GUI 0.4.2;
+- preserve the historical firmware and working Vial layout as recovery assets;
+- be comfortable to open in VS Code or enter through a shell;
+- avoid repeatedly rebuilding the toolchain locally;
+- let GitHub Actions build and publish the development image;
+- keep firmware source changes in a normal Git repository.
 
-Reference: [dfu-programmer manual](https://github.com/dfu-programmer/dfu-programmer/blob/master/docs/dfu-programmer.1)
+We are not flashing or dumping either controller while creating this
+environment. Any future operation that reads, erases or flashes a controller
+requires explicit approval.
 
-## Existing recovery material
+## Recommended design
 
-The archives already contain an unusually complete recovery baseline:
-
-- A known firmware image from February 2022:
-  `splitkb_kyria_rev1_slovak_kyria.hex`
-- A historical build archive containing:
-  - application HEX;
-  - ELF with symbols;
-  - linker map;
-  - every object file;
-  - the generated Vial keyboard definition;
-  - complete compiler and linker flags.
-- Exact historical compiler identity: `avr-gcc 8.4.0`.
-- A 778 MB archive containing `qmk/vial-qmk.7z`.
-- The GitHub fork and legacy branch:
-  `KraXen72/vial-qmk-legacy:vial-avr-legacy`.
-- A known-good Vial EEPROM/layout export:
-  `vial_saves/v2_36_restore_accents2.vil`.
-- Vial GUI 0.4.2 and the old QMK MSYS environment.
-
-The firmware HEX contains executable behavior, including the `USERxx`
-handlers. The `.vil` export contains the dynamic keymap stored in EEPROM. A
-complete recovery therefore needs both.
-
-## Options considered
-
-| Approach | Verdict | Reason |
-| --- | --- | --- |
-| Dump firmware through the current DFU bootloader | Optional experiment only | Readout may be blocked; entering DFU interrupts the keyboard; never proceed to erase if dumping fails. |
-| Dump through ISP using an external programmer | Reject for now | Requires opening or accessing both controllers and physical wiring; redundant given the archived HEX and ELF. |
-| Recreate the old QMK MSYS environment on Windows | Keep as emergency fallback | Closest historical environment, but difficult to automate and preserve cleanly. |
-| Use current Fedora AVR packages | Reject for the baseline | Modern compiler and binutils versions are unlikely to reproduce the old binary. |
-| Wrap a custom image in a devcontainer | Reject for now | Adds editor and lifecycle orchestration that is not currently wanted. |
-| Bake the firmware repository into the image | Reject | Makes source edits ephemeral or requires awkward persistence; source and toolchain belong in different layers. |
-| Raw Containerfile with bind-mounted source | Recommend | Smallest understandable model; preserves a normal Git checkout and works with Docker or Podman. |
-| GitHub Actions as the only build environment | Use only as a secondary verifier | Excellent for independent verification, but poor as the sole interactive development environment. |
-
-## Repository shape
-
-Keep firmware source, container configuration, scripts and reference metadata
-in the legacy firmware repository:
+Keep one project repository at `C:\Coding\keymap`. It contains the development
+environment, documentation, build scripts, Vial exports and reference hashes.
+On first container creation, an idempotent initialization script clones the
+legacy Vial-QMK fork into a nested `vial-qmk/` directory.
 
 ```text
-vial-qmk-legacy/
-├── Containerfile
+keymap/
+├── .devcontainer/
+│   └── devcontainer.json
+├── .github/
+│   └── workflows/
+│       └── devcontainer-image.yml
 ├── container/
-│   ├── build
-│   └── verify
-├── keyboards/splitkb/kyria/keymaps/slovak_kyria/
+│   ├── Containerfile
+│   └── initialize.sh
+├── scripts/
+│   ├── build.sh
+│   └── verify.sh
 ├── reference/
-│   ├── 2022-firmware.hex
-│   ├── 2022-firmware.elf
-│   ├── 2022-firmware.map
-│   ├── v2_36-known-good.vil
-│   └── SHA256SUMS
-└── docs/
-    └── recovery.md
+│   ├── SHA256SUMS
+│   └── README.md
+├── vial-qmk/                 # generated, ignored by the outer repository
+├── vial_saves/
+├── README.md
+└── firmware-dev-environment-plan.md
 ```
 
-Large binary recovery artifacts may be attached to a GitHub release or stored
-with Git LFS. Their hashes and the small metadata needed to identify them
-should remain directly in Git.
+The outer `keymap` repository is mounted by the normal devcontainer workspace
+bind mount. Therefore the nested `vial-qmk/` checkout and its Git history
+persist on the host when the container is rebuilt or deleted. No named volume
+or custom volume-management CLI is necessary.
 
-## Container design
+The nested checkout remains its own Git repository and pushes firmware changes
+to `KraXen72/vial-qmk-legacy`. The outer repository tracks only environment
+infrastructure, documentation, reference metadata and Vial exports.
 
-The image should contain only the pinned toolchain:
+## Why this is not a published Template or Feature
 
-- a Linux base image pinned by digest;
-- `avr-gcc 8.4.0`;
-- matching `avr-binutils`, `avr-libc`, Make and Python/QMK dependencies;
-- a manifest recording every relevant version;
-- no cloned mutable firmware repository;
-- no USB passthrough;
-- no Vial GUI.
+This environment is only intended for the `keymap` project. A separately
+published devcontainer Template would merely generate files that can live
+directly in this repository. A custom Feature would split a single-purpose
+toolchain across another repository and release process without improving the
+daily workflow.
 
-The normal Git checkout is bind-mounted at `/workspace`. Approximate raw usage:
+The repository-local `.devcontainer/devcontainer.json` provides the useful
+parts of devcontainers directly:
 
-```powershell
-podman build -t kyria-vial-legacy .
-podman run --rm -v "${PWD}:/workspace" -w /workspace kyria-vial-legacy ./container/build
+- standard workspace mounting;
+- VS Code integration;
+- lifecycle hooks;
+- a consistent non-root development user;
+- a straightforward shell through the devcontainer CLI;
+- optional editor extensions and settings.
+
+If the legacy AVR toolchain later becomes useful to several unrelated
+projects, it can be extracted into a Feature then. It should not be generalized
+preemptively.
+
+## Prebuilt development image
+
+`container/Containerfile` defines the toolchain. GitHub Actions builds it and
+publishes it to:
+
+```text
+ghcr.io/kraxen72/kyria-vial-legacy-dev:latest
 ```
 
-A small PowerShell wrapper should provide the normal interface:
+The image can inherit from either:
 
-```powershell
-.\firmware.ps1 build
-.\firmware.ps1 verify
+1. the existing KraXen72 Fedora base image, if it already provides a suitable
+   non-root user and common development tools; or
+2. a normal Fedora 44 image, if using the custom base adds friction.
+
+Choose whichever produces the smaller, clearer Containerfile after inspecting
+the available base image. Exact bit-for-bit image reproducibility is not a
+ requirement. Important firmware inputs should still be explicit enough
+that the environment remains understandable and repairable.
+
+The image should include:
+
+- the AVR compiler and libraries required by the legacy build;
+- Make and the normal QMK build dependencies;
+- Python and the QMK CLI version compatible with the legacy tree;
+- Git and basic shell utilities;
+- tools needed by `build.sh` and `verify.sh`.
+
+The historical build used `avr-gcc 8.4.0`. Prefer that version if practical.
+If Fedora 44 supplies a different version, first test whether it builds the
+firmware correctly before adding complicated compiler-pinning machinery.
+Functional compatibility and recoverability matter more than forcing an exact
+binary match.
+
+The image should not contain the Vial-QMK source checkout. Shipping it in the
+image would duplicate data, hide it beneath the workspace mount and make
+ordinary firmware editing less natural.
+
+The devcontainer configuration references the prebuilt GHCR image, so opening
+the repository normally only pulls the image instead of rebuilding the
+toolchain locally. Rebuilding the image locally remains available for work on
+the Containerfile.
+
+## Vial-QMK initialization
+
+Use `onCreateCommand` to invoke `container/initialize.sh`. `onCreateCommand`
+runs once when a devcontainer is created, which matches the one-time checkout
+operation better than `postStartCommand`.
+
+The initializer must be idempotent:
+
+1. If `vial-qmk/.git` does not exist, clone
+   `https://github.com/KraXen72/vial-qmk-legacy.git`.
+2. Fetch and check out the preserved legacy commit or branch.
+3. Initialize its submodules recursively.
+4. Confirm that the expected Kyria keymap exists.
+5. If the checkout already exists, leave its branch, commits and working tree
+   untouched; only report its current state.
+
+The exact source revision will be selected after comparing the historical
+`vial-qmk.7z` archive with the `vial-avr-legacy` branch. Once established, use
+a full commit SHA in the initializer. The branch name is useful for humans but
+must not silently change the initial baseline.
+
+A first-time clone taking up to approximately one minute is acceptable. It is
+simpler than packaging the source inside a Feature or OCI image and immediately
+provides a normal editable Git repository.
+
+## Build and verification scripts
+
+Avoid a project-specific Python/Click container-management CLI. Devcontainers
+already manage creation, image pulling, workspace mounting and shell access.
+Use small repository-local shell scripts for the firmware-specific operations.
+
+`scripts/build.sh` should:
+
+1. verify that `vial-qmk/` exists;
+2. print the source commit and relevant tool versions;
+3. compile `splitkb/kyria/rev1:slovak_kyria`;
+4. copy the resulting HEX to a stable output directory in the outer workspace;
+5. report firmware size and output hash.
+
+`scripts/verify.sh` should:
+
+1. perform a clean build;
+2. compare the output with the known historical firmware;
+3. report whether the result is byte-identical;
+4. if it differs, report sizes and normalized firmware differences clearly.
+
+A byte-identical build is desirable evidence, not an absolute requirement. A
+non-identical build can still be accepted after establishing that it fits the
+controller and retains the expected Vial identity, custom keycodes and other
+required behavior. No such build will be flashed as part of this setup.
+
+The scripts are the canonical commands used locally, from VS Code tasks and in
+CI. Do not duplicate the keyboard/keymap target across several configuration
+files if it can be defined once and reused.
+
+## Daily workflow
+
+Clone the outer repository and open it in VS Code. Choose **Dev Containers:
+Reopen in Container**. VS Code pulls the prebuilt image, mounts the repository
+and runs the one-time Vial-QMK initializer.
+
+From the integrated terminal:
+
+```bash
+./scripts/build.sh
+./scripts/verify.sh
 ```
 
-QMK officially supports both Docker and Podman for compilation and recommends
-keeping flashing outside the container on Windows.
+Without VS Code:
 
-Reference: [QMK Docker quick start](https://docs.qmk.fm/getting_started_docker)
+```bash
+devcontainer up --workspace-folder .
+devcontainer exec --workspace-folder . bash
+```
 
-## Build verification
+Firmware development happens in `vial-qmk/`. Commit and push there using normal
+Git commands. Changes to the environment, documentation or saved `.vil` files
+are committed in the outer `keymap` repository.
 
-The `verify` command should:
+VS Code tasks may expose **Build Kyria firmware** and **Verify Kyria firmware**
+for convenience, but they must call the same shell scripts rather than contain
+separate build logic.
 
-1. Start from a clean build directory.
-2. Print all tool versions.
-3. Compile `splitkb/kyria/rev1:slovak_kyria`.
-4. Report application size and the configured bootloader limit.
-5. Hash the resulting HEX.
-6. Compare it with the archived reference.
-7. If hashes differ, compare normalized flash contents and use the archived ELF
-   and map to explain the difference.
+## GitHub Actions
 
-There are two useful success levels:
+The outer repository should contain one workflow that:
 
-1. **Functional reproduction:** the build fits, exposes the same Vial identity
-   and custom keycodes, and behaves correctly.
-2. **Bit-for-bit reproduction:** normalized Intel HEX contents exactly match the
-   archived firmware.
+1. builds `container/Containerfile`;
+2. publishes the image to GHCR;
+3. tags it with the source commit and `latest`;
+4. reuses registry layer caching;
+5. optionally runs `scripts/verify.sh` in the newly built image before
+   publishing it.
 
-Attempt bit-for-bit reproduction, but do not make it a prerequisite for safe
-recovery. Embedded builds can differ because of source paths, timestamps,
-generated version strings, linker ordering or dirty-tree metadata while still
-being functionally identical.
+The workflow is the normal image builder. Local image builds are primarily for
+debugging changes to the Containerfile. This is the main reason for retaining
+the devcontainer design: the expensive toolchain image is prepared remotely,
+while the local machine only pulls it.
 
-The archived compiler identity, flags, ELF and map make an exact match
-plausible. The central task is pinning the complete 2022 toolchain, not merely
-checking out Vial QMK commit `bdbfe655`.
+Do not make every firmware-source commit rebuild the development image. The
+image should rebuild when the Containerfile, base image choice or toolchain
+requirements change. Firmware builds themselves are cheap and run against the
+bind-mounted checkout.
 
-## Flashing and recovery boundary
+## Recovery material
 
-Compilation belongs in the container. Flashing should remain native on Windows
-using QMK Toolbox or `dfu-programmer`.
+The following existing material should be catalogued before any future flash:
 
-References:
+- the February 2022 `splitkb_kyria_rev1_slovak_kyria.hex`;
+- the historical ELF and linker map;
+- the archived object tree and compiler flags;
+- the historical `vial-qmk.7z` source archive;
+- the working `vial_saves/v2_36_restore_accents2.vil` export;
+- Vial GUI 0.4.2;
+- cryptographic hashes for each retained artifact.
 
-- [QMK Docker quick start](https://docs.qmk.fm/getting_started_docker)
-- [QMK Atmel DFU instructions](https://docs.qmk.fm/flashing)
+The firmware HEX contains executable behavior such as the `USERxx` handlers.
+The `.vil` file contains the dynamic keymap stored in EEPROM. Both are needed
+for complete recovery.
 
-Before any experimental flash:
-
-1. Confirm the archived HEX files can be parsed.
-2. Record their cryptographic hashes in Git.
-3. Preserve `v2_36_restore_accents2.vil` alongside the matching firmware.
-4. Verify the replacement build fits below the application limit implied by
-   the 4 KiB Atmel DFU bootloader.
-5. Flash only one half first.
-6. Confirm it works and can reliably re-enter DFU before touching the other
-   half.
-7. Restore the `.vil` after flashing if EEPROM was cleared or is incompatible.
-
-VIA and Vial use the dynamic keymap stored in EEPROM after initialization, so
-the compiled default keymap may not immediately appear after flashing.
-
-Reference: [QMK keymap FAQ](https://docs.qmk.fm/faq_keymap)
+Large binaries can remain in the existing archive locations initially. Store
+their paths, identities and hashes in `reference/README.md` and
+`reference/SHA256SUMS`. They can later be attached to a GitHub release if a
+single downloadable recovery package is useful.
 
 ## Implementation plan
 
-### Phase 1: establish the historical baseline
+### 1. Confirm prerequisites
 
-1. Extract the historical `vial-qmk.7z` into a temporary directory.
-2. Establish its exact Git commit, submodule state, keymap source and dependency
-   versions.
-3. Compare it with `KraXen72/vial-qmk-legacy:vial-avr-legacy`.
-4. Import anything missing and tag the exact baseline, for example
-   `kyria-vial-2022-recovery`.
-5. Hash and catalogue the archived HEX, ELF, map, object-tree archive and
-   known-good `.vil` file.
+- Install Podman in the intended WSL environment.
+- Verify `podman version`, rootless operation and registry access.
+- Install the devcontainer CLI and verify that it can use Podman.
+- Account for the known Podman/devcontainer CLI startup race previously
+  reported by KraXen72; do not build new project machinery around that bug
+  unless it still reproduces.
 
-### Phase 2: reproduce the toolchain
+### 2. Establish the source baseline
 
-1. Build a minimal raw `Containerfile` pinned to the historical AVR toolchain.
-2. Avoid the generic Fedora toolchain base initially: it introduces another
-   moving part and likely lacks the exact historical AVR packages.
-3. Add one canonical build script containing the firmware target.
-4. Add a verification script that records versions, sizes and hashes.
-5. Run two clean builds and compare hashes to prove the container is internally
-   reproducible.
+- Extract the historical `vial-qmk.7z` into a temporary location.
+- Determine its Git commit and submodule state.
+- Compare the historical `slovak_kyria` source with
+  `KraXen72/vial-qmk-legacy:vial-avr-legacy`.
+- Commit anything missing to the fork.
+- Tag or otherwise record the full known-good baseline commit.
 
-### Phase 3: compare with the historical firmware
+### 3. Catalogue recovery artifacts
 
-1. Compare the new result with the 2022 HEX.
-2. If different, normalize Intel HEX record ordering and metadata before
-   comparing application bytes.
-3. Use the archived map, ELF, flags and object files to identify remaining
-   toolchain or source differences.
-4. Document whether the result is bit-identical or only functionally
-   equivalent.
+- Hash the historical HEX, ELF, map, object archive, source archive and current
+  known-good `.vil` file.
+- Record which artifacts correspond to the known-good firmware.
+- Validate that the HEX is structurally readable without connecting a
+  controller.
 
-### Phase 4: independent verification
+### 4. Build the development image
 
-1. Add a small GitHub Actions workflow using the same `Containerfile`.
-2. Build from the pinned source revision.
-3. Publish the resulting HEX, tool-version manifest and hashes as workflow
-   artifacts or a tagged release.
-4. Require the local and CI builds to match each other.
+- Choose the KraXen72 Fedora base or Fedora 44 after inspecting both.
+- Implement the minimal Containerfile.
+- Build and test it locally with Podman.
+- Add the GitHub Actions workflow and publish the first GHCR image.
+- Point `.devcontainer/devcontainer.json` at that image.
 
-### Phase 5: optional live dump
+### 5. Initialize and build the firmware
 
-Only consider this after the recovery baseline is complete:
+- Add the idempotent `onCreateCommand` initializer.
+- Create the devcontainer and confirm the nested checkout survives container
+  rebuilds.
+- Implement `build.sh` and compile the legacy target.
+- Confirm the output fits the Elite-C application space.
 
-1. Disconnect or disable anything that could accidentally invoke a flash or
-   erase operation.
-2. Connect and reset only one half into DFU mode.
-3. Attempt the read-only `dfu-programmer ... dump` operation.
-4. If access is denied, stop immediately.
-5. Never issue `erase` as part of obtaining a backup.
+### 6. Compare and debug
 
-ISP extraction should remain a last-resort forensic option, not part of the
-normal workflow.
+- Implement `verify.sh`.
+- Compare repeated clean builds for internal consistency.
+- Compare the new output with the historical HEX.
+- If it differs, use the saved compiler flags, ELF, map and object files to
+  identify the reason.
+- Prefer a simple functionally equivalent build over excessive machinery whose
+  only purpose is reproducing incidental binary differences.
 
-### Phase 6: future firmware changes
+### 7. Document the finished workflow
 
-1. Make changes on a branch from the frozen legacy tag.
-2. Build and verify without connecting the keyboard.
-3. Preserve the known-good firmware and EEPROM export separately.
-4. Flash only one half and test it fully.
-5. Flash the second half only after the first can be recovered reliably.
+Write a concise README covering:
 
-## Final position
+- prerequisite installation;
+- opening the project in VS Code;
+- creating and rebuilding the devcontainer;
+- obtaining a shell without VS Code;
+- building and verifying firmware;
+- editing, committing and pushing the nested Vial-QMK checkout;
+- locating build outputs and recovery artifacts;
+- the explicit prohibition on dumping or flashing without approval.
 
-Building the reproducible environment is worthwhile. Dumping the live board is
-not necessary for safety because the historical backup already contains more
-useful recovery and diagnostic material than a raw flash dump would provide.
-There is no reason to reflash the now-working keyboard merely to prove the
-environment; the first real flash should happen only when a firmware change is
-needed.
+## Explicitly out of scope
+
+- Dumping firmware or EEPROM from either controller.
+- Erasing or flashing either controller.
+- USB device passthrough into the development container.
+- Running Vial GUI inside the container.
+- Migrating the keyboard to current QMK/Vial or ARM controllers.
+- Publishing a generalized devcontainer Template or Feature before another
+  real consumer exists.
+
