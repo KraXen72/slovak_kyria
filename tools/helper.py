@@ -1074,7 +1074,9 @@ def _visualization_fingerprint(
         PROJECT_ROOT / "uv.lock",
     ]
     for path in input_paths:
-        digest.update(path.resolve().as_posix().encode("utf-8"))
+        # Repository-relative names keep the manifest portable across clones;
+        # absolute checkout paths would force every machine to rerender.
+        digest.update(_project_relative(path).encode("utf-8"))
         digest.update(_sha256_path(path).encode("ascii"))
     digest.update(layout_name.encode("utf-8"))
     digest.update(json.dumps(selected_layers, separators=(",", ":")).encode("ascii"))
