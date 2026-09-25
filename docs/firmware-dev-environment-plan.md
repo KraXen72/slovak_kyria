@@ -1,5 +1,9 @@
 # Kyria legacy firmware development plan
 
+> Historical design record. The implemented interface is documented in
+> [`../readme.md`](../readme.md); paths and commands in this document describe
+> the earlier plan and are not the canonical setup.
+
 ## Goal
 
 Create a low-maintenance development environment for the existing Kyria rev1
@@ -320,4 +324,3 @@ Write a concise README covering:
 - Migrating the keyboard to current QMK/Vial or ARM controllers.
 - Publishing a generalized devcontainer Template or Feature before another
   real consumer exists.
-

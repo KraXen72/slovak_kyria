@@ -5,7 +5,7 @@
 #   "vial-to-keymap @ git+https://github.com/Nisker/vial-to-keymap.git",
 # ]
 # ///
-"""KraXen's vial-qmk helper CLI.  Run from your keymap folder."""
+"""Helpers for generating and inspecting the outer Kyria keymap project."""
 
 from __future__ import annotations
 
@@ -16,14 +16,19 @@ from urllib.request import urlopen
 
 import click
 
-# keyboard geometry (adapt if you change boards) 
+# Resolve project files from this script rather than the caller's working
+# directory, so `uv run tools/helpercli.py ...` works from any directory.
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+FIRMWARE_DIR = PROJECT_ROOT / "firmware"
+
+# keyboard geometry (adapt if you change boards)
 ROWS_PER_HALF = 4
 
-# paths (relative to cwd — run from keyboards/splitkb/kyria/keymaps/slovak_kyria/) 
-VIALSAVES_DIR  = Path("vialsaves")
-KEYCODEDB_PATH = VIALSAVES_DIR / "keycodedb.json"
-KEYMAP_C       = Path("keymap.c")
-VIAL_JSON      = Path("vial.json")
+# paths in the outer repository
+VIALSAVES_DIR  = PROJECT_ROOT / "vial_saves"
+KEYCODEDB_PATH = VIALSAVES_DIR / "keycode_db.json"
+KEYMAP_C       = FIRMWARE_DIR / "keymap.c"
+VIAL_JSON      = FIRMWARE_DIR / "vial.json"
 
 # QMK keycode sources (pinned commit for reproducibility) 
 _QMK_BASE = "https://rawcdn.githack.com/qmk/qmk_firmware/ca10e4d07579ae85c6720fdd3db3a0bfb5ebff36/quantum"
@@ -73,7 +78,7 @@ def _run(args: list[str], **kwargs) -> subprocess.CompletedProcess:
 
 @click.group()
 def cli():
-    """KraXen's vial-qmk helper — run from your keymap folder."""
+    """Helpers for the outer Kyria keymap project."""
 
 
 # genkey 
@@ -83,7 +88,7 @@ def genkey():
     """Generate vial customKeycodes from keymap.c -> vial.json."""
     for p in (KEYMAP_C, VIAL_JSON):
         if not p.exists():
-            raise click.ClickException(f"{p} not found — run from your keymap folder")
+            raise click.ClickException(f"{p} not found")
 
     lines = KEYMAP_C.read_text(encoding="utf-8").splitlines()
 
@@ -125,7 +130,7 @@ def genkey():
 
 @cli.command()
 def fetchkeys():
-    """Fetch QMK keycode aliases from GitHub -> vialsaves/keycodedb.json."""
+    """Fetch QMK keycode aliases from GitHub -> vial_saves/keycode_db.json."""
     VIALSAVES_DIR.mkdir(exist_ok=True)
     lib: dict[str, str] = {}   # long_name -> short_alias
 
@@ -159,7 +164,7 @@ def fetchkeys():
 def viltokey(vil_file: Path):
     """Convert a .vil vial save to C LAYOUT() blocks (stdout).
 
-    Requires fetchkeys to have been run first (vialsaves/keycodedb.json).
+    Requires fetchkeys to have been run first (vial_saves/keycode_db.json).
     """
     if not KEYCODEDB_PATH.exists():
         raise click.ClickException("keycodedb.json not found — run 'fetchkeys' first")
@@ -218,8 +223,8 @@ def vis(vtk_args: tuple[str, ...]):
 
     \b
     Pipeline:
-      vial-to-keymap --output keymap_vis [VTK_ARGS] -> keymap_vis.yaml
-      keymap draw keymap_vis.yaml                    -> keymap.svg
+      vial-to-keymap --output <repo>/keymap_vis [VTK_ARGS] -> keymap_vis.yaml
+      keymap draw <repo>/keymap_vis.yaml                    -> keymap.svg
 
     All VTK_ARGS are forwarded verbatim to vial-to-keymap.
 
@@ -229,22 +234,23 @@ def vis(vtk_args: tuple[str, ...]):
 
     \b
     Examples:
-      uv run helpercli.py vis
-      uv run helpercli.py vis --layer-names Base,Nav,Sym,Fn
-      uv run helpercli.py vis --os-layout us-intl
+      uv run tools/helpercli.py vis
+      uv run tools/helpercli.py vis --layer-names Base,Nav,Sym,Fn
+      uv run tools/helpercli.py vis --os-layout us-intl
     """
-    r = _run(["vial-to-keymap", "--output", "keymap_vis", *vtk_args])
+    visualization_base = PROJECT_ROOT / "keymap_vis"
+    r = _run(["vial-to-keymap", "--output", str(visualization_base), *vtk_args])
     if r.returncode != 0:
         raise click.ClickException(
             "vial-to-keymap failed.\n"
             "  keyboard plugged in?  udev rules set up?  vial-to-keymap installed?"
         )
 
-    yaml_file = Path("keymap_vis.yaml")
+    yaml_file = PROJECT_ROOT / "keymap_vis.yaml"
     if not yaml_file.exists():
         raise click.ClickException(f"{yaml_file} missing — vial-to-keymap produced no output")
 
-    svg_file = Path("keymap.svg")
+    svg_file = PROJECT_ROOT / "keymap.svg"
     with svg_file.open("w", encoding="utf-8") as out:
         r = _run(["keymap", "draw", str(yaml_file)], stdout=out)
     if r.returncode != 0:
