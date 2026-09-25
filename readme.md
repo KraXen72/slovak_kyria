@@ -4,7 +4,7 @@
 ![Latest Vial save: Base, Layer1, NavFn, Symbols, RGB, Accents](assets/keymap_latest.png)
 
 The image above is generated from
-[`vial_saves/v2_9.vil`](vial_saves/v2_9.vil):
+[`vial_saves/v2_53_mo4_on_thumb.vil`](vial_saves/v2_53_mo4_on_thumb.vil):
 the Base, Layer1, NavFn, Symbols, RGB, Accents layers are shown in that order.
 <!-- END GENERATED KEYMAP VISUALIZATION -->
 
@@ -216,9 +216,11 @@ The layer headings are inferred from their contents; explicit `--layer-names`
 remains available for unusual saves.
 
 The README image is maintained by the Python pre-commit hook in `.githooks/`.
-It chooses the alphabetically last `.vil` file, regenerates only when its
-inputs or renderer configuration changed, updates the marked README block,
-and stages the generated assets automatically. Run it manually when desired:
+It chooses the highest naturally versioned `.vil` file (so `v2_53` sorts after
+`v2_9`; unversioned historical exports sort before numbered revisions),
+regenerates only when its inputs or renderer configuration changed, updates the
+marked README block, and stages the generated assets automatically. Run it
+manually when desired:
 
 ```bash
 uv run --locked -m tools.helper refresh-readme

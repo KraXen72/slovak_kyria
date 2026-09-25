@@ -495,6 +495,17 @@ def _load_vial_layers(vil_file: Path) -> tuple[dict[str, Any], list[list[list[An
     return save, layers
 
 
+def _load_keyboard_definition() -> dict[str, Any]:
+    """Load the committed Vial keyboard definition used by the renderer."""
+    try:
+        definition = json.loads(VIAL_JSON.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise click.ClickException(f"invalid keyboard definition: {VIAL_JSON}") from error
+    if not isinstance(definition, dict):
+        raise click.ClickException(f"invalid keyboard definition: {VIAL_JSON}")
+    return definition
+
+
 def _parse_layer_selection(value: str | None, layer_count: int) -> list[int]:
     """Parse a comma-separated layer selection and validate its indexes."""
     if value is None:
@@ -562,13 +573,18 @@ def _flatten_layer_tokens(layer: list[list[Any]]) -> list[str]:
     ]
 
 
-def _infer_layer_names(layers: list[list[list[Any]]]) -> list[str]:
+def _infer_layer_names(
+    layers: list[list[list[Any]]],
+    custom_keycodes: dict[str, str] | None = None,
+) -> list[str]:
     """Infer useful headings from layer contents without relying on layer indexes."""
     names: list[str] = []
     used: set[str] = set()
     accent_pattern = re.compile(r"(?:ACUTE|CARON|UMLAU|DIA|CCIRC)")
+    accent_display_pattern = re.compile(r"(?:/|v|\.\.|\^)\n")
     function_pattern = re.compile(r"(?:^|\()KC_F(?:[0-9]+)\)?$")
     symbol_pattern = re.compile(r"(?:KC_[0-9]|LSFT\(|S\(|KC_(?:GRAVE|MINUS|EQUAL|LBRACKET|RBRACKET|BSLASH))")
+    custom_keycodes = custom_keycodes or {}
 
     for index, layer in enumerate(layers):
         tokens = _flatten_layer_tokens(layer)
@@ -576,7 +592,12 @@ def _infer_layer_names(layers: list[list[list[Any]]]) -> list[str]:
         has_nav = bool(set(upper_tokens) & _LAYER_NAV_TOKENS)
         has_function = any(function_pattern.search(token) for token in upper_tokens)
         has_rgb = any(token.startswith("RGB_") for token in upper_tokens)
-        has_accents = any(accent_pattern.search(token) for token in upper_tokens)
+        has_accents = any(
+            accent_pattern.search(token)
+            or accent_pattern.search(custom_keycodes.get(token, ""))
+            or accent_display_pattern.search(custom_keycodes.get(token, ""))
+            for token in upper_tokens
+        )
         has_symbols = any(symbol_pattern.search(token) for token in upper_tokens)
 
         if index == 0:
@@ -1138,8 +1159,10 @@ def _render_visualization(
     """Convert a Vial save into all committed visualization artifacts."""
     vil_file = _project_path(vil_file)
     _, vial_layers = _load_vial_layers(vil_file)
+    definition = _load_keyboard_definition()
+    custom_keycodes = _load_custom_keycodes(definition)
     selected_layers = _parse_layer_selection(layers, len(vial_layers))
-    inferred_names = _infer_layer_names(vial_layers)
+    inferred_names = _infer_layer_names(vial_layers, custom_keycodes)
     all_layer_names = _parse_layer_names(
         layer_names,
         selected_layers,
@@ -1148,11 +1171,6 @@ def _render_visualization(
     )
     selected_layer_names = [all_layer_names[index] for index in selected_layers]
     layout = _load_layout(layout_name)
-
-    try:
-        definition = json.loads(VIAL_JSON.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as error:
-        raise click.ClickException(f"invalid keyboard definition: {VIAL_JSON}") from error
 
     physical_keys = _load_physical_keys(definition)
     matrix = definition.get("matrix", {})
@@ -1164,7 +1182,6 @@ def _render_visualization(
         if invalid:
             raise click.ClickException("physical layout contains a key outside the Vial matrix")
 
-    custom_keycodes = _load_custom_keycodes(definition)
     layer_keys = _save_layer_keys(
         vial_layers,
         physical_keys,
@@ -1305,11 +1322,12 @@ def _metadata_is_current(meta_path: Path, expected: dict[str, Any], output_stem:
     help="Host layout used to resolve modified keycodes; use 'none' to keep raw labels.",
 )
 def refresh_readme(force: bool, layout_name: str) -> None:
-    """Refresh README visualization from the alphabetically last Vial save."""
+    """Refresh README visualization from the highest versioned Vial save."""
     source = _latest_vial_save()
     _, layers = _load_vial_layers(source)
     selected_layers = list(range(len(layers)))
-    layer_names = _infer_layer_names(layers)
+    custom_keycodes = _load_custom_keycodes(_load_keyboard_definition())
+    layer_names = _infer_layer_names(layers, custom_keycodes)
     normalized_layout = layout_name.casefold()
     output_stem = ASSETS_DIR / "keymap_latest"
     expected = _build_visualization_metadata(
@@ -1338,11 +1356,40 @@ def refresh_readme(force: bool, layout_name: str) -> None:
 
 
 def _latest_vial_save() -> Path:
-    """Return the alphabetically last committed Vial save, ignoring other files."""
-    saves = sorted(VIALSAVES_DIR.glob("*.vil"), key=lambda path: path.name.casefold())
+    """Return the highest naturally versioned Vial save, ignoring other files."""
+    saves = sorted(VIALSAVES_DIR.glob("*.vil"), key=_vial_save_sort_key)
     if not saves:
         raise click.ClickException(f"no .vil files found in {VIALSAVES_DIR}")
     return saves[-1]
+
+
+def _vial_save_sort_key(path: Path) -> tuple[object, ...]:
+    """Sort numbered Vial revisions by version before comparing their suffixes.
+
+    Historical exports include both ``v1_12.vil`` and the compact equivalent
+    ``v12.vil``. Compact names are treated as major version 1, while names
+    without a version prefix sort before numbered revisions.
+    """
+    match = re.fullmatch(r"v(?P<major>\d+)(?:_(?P<minor>\d+))?(?P<suffix>.*)", path.stem, re.IGNORECASE)
+    if match is None:
+        return (0, _natural_sort_key(path.name))
+
+    major = int(match.group("major"))
+    minor_text = match.group("minor")
+    if minor_text is None:
+        major, minor = 1, major
+    else:
+        minor = int(minor_text)
+    suffix = match.group("suffix")
+    return (1, major, minor, _natural_sort_key(suffix), _natural_sort_key(path.name))
+
+
+def _natural_sort_key(value: str) -> tuple[str | int, ...]:
+    """Sort filenames by text while comparing embedded digit runs numerically."""
+    return tuple(
+        int(part) if part.isdigit() else part.casefold()
+        for part in re.split(r"(\d+)", value)
+    )
 
 
 if __name__ == "__main__":

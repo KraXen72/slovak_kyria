@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "source": "vial_saves/v2_9.vil",
-  "source_sha256": "3a44f8c90af0df712e431f538ed870b986cd948848087fa1d6467a3fa95ba9e1",
+  "source": "vial_saves/v2_53_mo4_on_thumb.vil",
+  "source_sha256": "c80c1755bb5d4287766e82aab816fc2179336b6287831bd1e442baf7bf58d987",
   "layout": "eurkey",
   "layers": [
     0,
@@ -19,5 +19,5 @@
     "RGB",
     "Accents"
   ],
-  "fingerprint": "7b7b73b23654f043b8c87cc3237cd3a656b7df73b41229351ad6ba2f340c693a"
+  "fingerprint": "8d95ac809b958f229074c07178b8f3167b48f754bbfec21c3721d711a3254784"
 }

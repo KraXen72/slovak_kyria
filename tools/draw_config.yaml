@@ -18,7 +18,7 @@ draw_config:
       opacity: 0.6;
     }
     svg.keymap {
-      font-size: 18px;
+      font-size: 14px;
     }
     text.label,
     text.footer {
