@@ -1,0 +1,14 @@
+diff --git a/util/build_id.py b/util/build_id.py
+--- a/util/build_id.py
++++ b/util/build_id.py
+@@ -1,9 +1,6 @@
+-import random
+-
+-
+ def main():
+-    print("#define BUILD_ID ((uint32_t)0x{:08X})".format(random.randrange(0, 2 ** 24 - 1)))
++    print("#define BUILD_ID ((uint32_t)0x00000000)")
+ 
+ 
+ if __name__ == "__main__":
+     main()

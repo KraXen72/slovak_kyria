@@ -3,3 +3,13 @@ result1.json
 result2.json
 result3.json
 repomix-output.xml
+
+# Generated firmware checkout and build products.
+vial-qmk/
+build/
+.build/
+
+# Local Python tooling environment.
+.venv/
+__pycache__/
+*.py[cod]

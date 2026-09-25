@@ -1,0 +1,13 @@
+[project]
+name = "slovak-kyria-tools"
+version = "0.1.0"
+description = "Development helpers for the Slovak Kyria keymap"
+requires-python = ">=3.12,<4"
+dependencies = [
+    "click>=8.1,<9",
+    "keymap-drawer==0.23.0",
+    "vial-to-keymap @ git+https://github.com/Nisker/vial-to-keymap.git",
+]
+
+[tool.uv]
+package = false

@@ -1,0 +1,62 @@
+# syntax=docker/dockerfile:1
+
+# Python 3.11 is intentional: this historical QMK revision uses AST APIs that
+# were removed in Python 3.14. The published GHCR image is the normal developer
+# entry point; this file is the documented recovery path when it is unavailable.
+FROM docker.io/library/python:3.11-slim-bookworm@sha256:4b4c524dc3dce996864e030c7bd9c6b0e517597189fee48f48e05b499442444b
+
+ARG QMK_CLI_VERSION=1.1.5
+
+ENV LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8 \
+    PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+USER root
+
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y \
+        avr-libc \
+        binutils-avr \
+        ca-certificates \
+        diffutils \
+        gcc \
+        g++ \
+        gcc-avr \
+        git \
+        make \
+        patch \
+        passwd \
+        unzip \
+        wget \
+        which \
+        zip \
+    && rm -rf /var/lib/apt/lists/*
+
+# The qmk package supplies the stable CLI wrapper. The firmware checkout
+# supplies the matching command implementations through QMK_HOME at runtime.
+RUN python -m pip install --no-cache-dir --upgrade 'pip<26' \
+    && python -m pip install --no-cache-dir \
+        "qmk==${QMK_CLI_VERSION}" \
+        appdirs \
+        argcomplete \
+        colorama \
+        hid \
+        hjson \
+        'jsonschema>=3' \
+        'milc==1.6.8' \
+        pygments \
+        pyusb \
+        qmk-dotty-dict
+
+RUN useradd --create-home --shell /bin/bash developer \
+    && install -d -o developer -g developer /workspace
+
+COPY infra/container/entrypoint.sh /usr/local/bin/kyria-entrypoint
+RUN chmod 0755 /usr/local/bin/kyria-entrypoint
+
+USER developer
+WORKDIR /workspace
+ENV HOME=/home/developer
+
+ENTRYPOINT ["/usr/local/bin/kyria-entrypoint"]
+CMD ["bash"]

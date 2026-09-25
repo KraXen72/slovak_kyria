@@ -1,0 +1,12 @@
+{
+  "name": "Kyria firmware (legacy Vial AVR)",
+  "image": "ghcr.io/kraxen72/kyria-vial-legacy-dev:latest",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,Z",
+  "mounts": [
+    "source=kyria-vial-qmk,target=/workspace/vial-qmk,type=volume"
+  ],
+  "workspaceFolder": "/workspace",
+  "remoteUser": "developer",
+  "updateRemoteUserUID": true,
+  "postCreateCommand": "bash /workspace/infra/container/initialize.sh"
+}
