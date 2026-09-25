@@ -18,6 +18,11 @@ The retained Vial exports live in [`../vial_saves`](../vial_saves), including
 already present in the GitHub repository before the source reorganization. The
 active versions are `../firmware/keymap.c` and `../tools/helper.py`.
 
+Older generated keymap images and layout exports are grouped under
+[`legacy/`](legacy/); they are retained for comparison only. The current
+README image and its reproducible drawer inputs live under
+[`../assets`](../assets).
+
 Do not dump, erase, or flash either controller as part of this setup. Add a
 known-good HEX under `reference/known-good/` only after its provenance and
 hash have been recorded here.

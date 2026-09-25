@@ -8,6 +8,7 @@ repomix-output.xml
 vial-qmk/
 build/
 .build/
+.playwright-cli/
 
 # Local Python tooling environment.
 .venv/

@@ -39,10 +39,12 @@ work.
 
 ## Decisions that still need evidence
 
-- Confirm which repository will host the GitHub Actions workflow and publish
-  the image. The current checkout's Git remote is on GitLab.
+- GitHub Actions and GHCR live in `KraXen72/slovak_kyria`; the active
+  development branch is `firmware-dev-environment` and the image is
+  `ghcr.io/kraxen72/kyria-vial-legacy-dev`.
 - Confirm the exact firmware source revision and keymap contents against the
   retained legacy source archive and known-good firmware before calling a
   build baseline verified.
-- Choose host commands that keep first-time setup short on both supported
-  systems while leaving an ordinary editable Git checkout available.
+- The host interface is a small Linux/WSL prerequisite set plus the Podman
+  launcher documented in the root README; VS Code Dev Containers remains an
+  optional convenience.

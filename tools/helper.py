@@ -262,8 +262,7 @@ def _normalise_vial_layout_tags(layout_rows: list[Any]) -> list[Any]:
                 new_row.append(item)
                 continue
 
-            variant, option = (int(part) for part in labels[tag_index].split(","))
-            del variant  # The parser only needs one selected variant here.
+            _, option = (int(part) for part in labels[tag_index].split(","))
             if len(labels) <= 8:
                 labels.extend([""] * (9 - len(labels)))
             labels[8] = f"0,{option}"
@@ -276,11 +275,11 @@ def _normalise_vial_layout_tags(layout_rows: list[Any]) -> list[Any]:
 def _load_physical_keys(definition: dict[str, Any]) -> list[PhysicalKey]:
     """Read the default physical Kyria layout and reject duplicate matrix keys."""
     try:
-        kle_rows = definition["layouts"]["keymap"]
+        layout_rows = definition["layouts"]["keymap"]
     except (KeyError, TypeError) as error:
         raise click.ClickException("firmware/vial.json has no layouts.keymap definition") from error
 
-    physical_keys = parse_kle(_normalise_vial_layout_tags(kle_rows), default_layout_index=0)
+    physical_keys = parse_kle(_normalise_vial_layout_tags(layout_rows), default_layout_index=0)
     matrix_keys = [key for key in physical_keys if not key.is_encoder]
     addresses = [(key.row, key.col) for key in matrix_keys]
     duplicates = sorted({address for address in addresses if addresses.count(address) > 1})

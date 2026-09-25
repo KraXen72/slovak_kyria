@@ -20,11 +20,11 @@ Install the small host prerequisite set once:
 
 ```bash
 # Fedora / Fedora WSL
-sudo dnf install -y git podman
+sudo dnf install -y curl git podman
 
 # Debian or Ubuntu / WSL (use this instead of the Fedora command)
 sudo apt-get update
-sudo apt-get install -y git podman
+sudo apt-get install -y curl git podman
 ```
 
 Check the installation:
@@ -139,12 +139,20 @@ The optional helper uses `uv` and is separate from the firmware build. Install
 The helper project targets Python 3.12+; uv provisions that interpreter and
 uses the committed `uv.lock` file for its dependencies.
 
+Install uv once if it is not already available:
+
 ```bash
-uv run -m tools.helper --help
-uv run -m tools.helper fetchkeys
-uv run -m tools.helper genkey
-uv run -m tools.helper viltokey path/to/layout.vil
-uv run -m tools.helper vis \
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source "$HOME/.local/bin/env"
+uv --version
+```
+
+```bash
+uv run --locked -m tools.helper --help
+uv run --locked -m tools.helper fetchkeys
+uv run --locked -m tools.helper genkey
+uv run --locked -m tools.helper viltokey path/to/layout.vil
+uv run --locked -m tools.helper vis \
   vial_saves/v2_53_mo4_on_thumb.vil \
   --layers 0,2,3 --layer-names Base,Nav,Sym
 ```
@@ -152,9 +160,9 @@ uv run -m tools.helper vis \
 `vis` works offline from a committed Vial save and writes the companion
 `keymap_latest.yaml`,
 `keymap_latest.json`, and `keymap_latest.svg` files under `assets/` by default.
-Neither visualization command is part of the firmware build or verification
-path. The helper always reads and writes project files using their repository
-locations, regardless of the current directory.
+Visualization is not part of the firmware build or verification path. The
+helper always reads and writes project files using their repository locations,
+regardless of the current directory.
 
 ## Repository layout
 

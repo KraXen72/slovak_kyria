@@ -1,7 +1,7 @@
 # Optional VS Code devcontainer
 
 The canonical interface is the Podman launcher documented in
-[`readme.md`](readme.md):
+[`readme.md`](../readme.md):
 
 ```bash
 bash infra/scripts/build.sh
