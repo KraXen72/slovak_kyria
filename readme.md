@@ -123,8 +123,9 @@ The `.info` file records the keyboard, keymap, QMK repository and commit, QMK
 CLI version, AVR compiler version, and firmware hash.
 
 `verify.sh` performs two clean builds and compares them byte-for-byte. It also
-compares a historical HEX if one is later added under
-`reference/known-good/`; that artifact is not currently in this checkout.
+compares the retained February 2022 HEX under `reference/known-good/`. A
+different historical hash is reported for investigation but does not make the
+current deterministic build fail.
 
 ## Recovery
 

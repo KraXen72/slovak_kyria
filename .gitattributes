@@ -1,0 +1,3 @@
+# Firmware HEX artifacts are compared by hash; preserve their original bytes
+# and line endings across Windows and Linux checkouts.
+*.hex binary
