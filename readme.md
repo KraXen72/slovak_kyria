@@ -16,6 +16,14 @@ pinned source revision and copies the source into it before compiling.
 The commands below run in a Linux or WSL terminal. They do not run in
 PowerShell or `cmd.exe`; WSL is the Windows host contract for this project.
 
+Clone the development branch with the repository's stable HTTPS identity:
+
+```bash
+git clone --branch firmware-dev-environment \
+  https://KraXen72@github.com/KraXen72/slovak_kyria slovak_kyria
+cd slovak_kyria
+```
+
 Install the small host prerequisite set once:
 
 ```bash
@@ -84,6 +92,23 @@ QMK checkout is an implementation cache, not the source of truth for the
 keymap. On WSL `/mnt/c` it is inside the named Podman volume; use
 `KYRIA_USE_QMK_VOLUME=0` if you deliberately need the checkout visible on the
 host.
+
+## Git workflow
+
+The development branch is `firmware-dev-environment`. Pull it before starting
+work and push commits back to the same branch:
+
+```bash
+git pull --ff-only
+git status
+git add -A
+git commit -m "describe the keymap change"
+git push origin firmware-dev-environment
+```
+
+Build products, the generated QMK checkout, and local Python environments are
+ignored. The committed firmware source, Vial saves, lockfile, and container
+version contract are the reproducible inputs.
 
 ## Build outputs
 
