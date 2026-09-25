@@ -1,6 +1,10 @@
 # Slovak Kyria keymap and firmware
 
-![Historical keymap visualization](keymap.png)
+![Latest Vial save: Base, Nav, and Sym layers](assets/keymap_latest.svg)
+
+The image above is generated from
+[`vial_saves/v2_53_mo4_on_thumb.vil`](vial_saves/v2_53_mo4_on_thumb.vil):
+the Base, Nav, and Sym layers are shown in that order.
 
 This repository is the editable project layer for a Kyria rev1 using the
 legacy Vial-QMK AVR firmware. The editable keyboard source lives under
@@ -140,11 +144,17 @@ uv run -m tools.helper --help
 uv run -m tools.helper fetchkeys
 uv run -m tools.helper genkey
 uv run -m tools.helper viltokey path/to/layout.vil
+uv run -m tools.helper vis \
+  vial_saves/v2_53_mo4_on_thumb.vil \
+  --layers 0,2,3 --layer-names Base,Nav,Sym
 ```
 
-The visualization command talks to a connected keyboard and is not part of the
-build or verification path. The helper always reads and writes project files
-using their repository locations, regardless of the current directory.
+`vis` works offline from a committed Vial save and writes the companion
+`keymap_latest.yaml`,
+`keymap_latest.json`, and `keymap_latest.svg` files under `assets/` by default.
+Neither visualization command is part of the firmware build or verification
+path. The helper always reads and writes project files using their repository
+locations, regardless of the current directory.
 
 ## Repository layout
 
@@ -152,7 +162,9 @@ using their repository locations, regardless of the current directory.
 firmware/     editable keyboard firmware and Vial metadata
 tools/        optional keymap/recovery helpers
 infra/        Podman image, pinned build contract, and launcher scripts
+assets/       committed visualizations used by the main README
 docs/         notes and design records
+reference/    recovery material and archived historical exports
 .github/      image publishing workflow
 ```
 
