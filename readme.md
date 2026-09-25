@@ -1,20 +1,24 @@
 # Slovak Kyria keymap and firmware
 
-![Latest Vial save: Base, Nav, and Sym layers](assets/keymap_latest.svg)
+<!-- BEGIN GENERATED KEYMAP VISUALIZATION -->
+![Latest Vial save: Base, Layer1, NavFn, Symbols, RGB, Accents](assets/keymap_latest.png)
 
 The image above is generated from
-[`vial_saves/v2_53_mo4_on_thumb.vil`](vial_saves/v2_53_mo4_on_thumb.vil):
-the Base, Nav, and Sym layers are shown in that order.
+[`vial_saves/v2_9.vil`](vial_saves/v2_9.vil):
+the Base, Layer1, NavFn, Symbols, RGB, Accents layers are shown in that order.
+<!-- END GENERATED KEYMAP VISUALIZATION -->
 
 This repository is the editable project layer for a Kyria rev1 using the
 legacy Vial-QMK AVR firmware. The editable keyboard source lives under
 `firmware/`. The first build creates an ignored `vial-qmk/` checkout at the
 pinned source revision and copies the source into it before compiling.
 
-## Quick start from Linux or WSL
+## Quick start for firmware builds (Linux or WSL)
 
-The commands below run in a Linux or WSL terminal. They do not run in
-PowerShell or `cmd.exe`; WSL is the Windows host contract for this project.
+The firmware/container launcher is a Bash interface, so these commands run in
+a Linux terminal or WSL. They do not run in PowerShell or `cmd.exe`; WSL is the
+Windows host contract for firmware builds. The Python helper is separate and
+can run natively on Windows with `uv`.
 
 Clone the development branch with the repository's stable HTTPS identity:
 
@@ -22,6 +26,9 @@ Clone the development branch with the repository's stable HTTPS identity:
 git clone --branch firmware-dev-environment \
   https://KraXen72@github.com/KraXen72/slovak_kyria slovak_kyria
 cd slovak_kyria
+
+# Enable the repository's cross-platform Python pre-commit hook.
+git config core.hooksPath .githooks
 ```
 
 Install the small host prerequisite set once:
@@ -85,10 +92,10 @@ Edit these outer-repository files:
 - `firmware/vial.json` and `firmware/vial_encoders.json` are Vial metadata.
 - `vial_saves/` contains saved Vial layouts.
 
-`tools/` contains optional keymap helpers, `infra/` contains the container and
-launcher implementation, and `docs/` contains project notes. The generated
-QMK checkout is an implementation cache, not the source of truth for the
-keymap. On WSL `/mnt/c` it is inside the named Podman volume; use
+`tools/` contains optional keymap helpers and layout data, `infra/` contains
+the container and launcher implementation, and `docs/` contains project
+notes. The generated QMK checkout is an implementation cache, not the source
+of truth for the keymap. On WSL `/mnt/c` it is inside the named Podman volume; use
 `KYRIA_USE_QMK_VOLUME=0` if you deliberately need the checkout visible on the
 host.
 
@@ -165,16 +172,25 @@ checkout. It verifies the pinned commit and leaves local QMK work alone.
 ## Helper CLI
 
 The optional helper uses `uv` and is separate from the firmware build. Install
-`uv` on the WSL/Linux host if you need it:
+`uv` on the host where you will run it if you need it. It runs directly in
+native Windows PowerShell as well as Linux/WSL; WSL is not required for this
+section:
 
 The helper project targets Python 3.12+; uv provisions that interpreter and
 uses the committed `uv.lock` file for its dependencies.
 
-Install uv once if it is not already available:
+Install uv once if it is not already available. On Linux/WSL:
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 source "$HOME/.local/bin/env"
+uv --version
+```
+
+On Windows PowerShell, use the native installer instead:
+
+```powershell
+irm https://astral.sh/uv/install.ps1 | iex
 uv --version
 ```
 
@@ -189,19 +205,36 @@ uv run --locked -m tools.helper vis \
 ```
 
 `vis` works offline from a committed Vial save and writes the companion
-`keymap_latest.yaml`,
-`keymap_latest.json`, and `keymap_latest.svg` files under `assets/` by default.
+`keymap_latest.yaml`, `keymap_latest.json`, `keymap_latest.svg`,
+`keymap_latest.png`, and `keymap_latest.meta.json` files under `assets/` by
+default. It draws every layer unless `--layers` is supplied, resolves modified
+keycodes against patched EurKEY by default, and accepts `--layout us`,
+`--layout slovak`, or explicit `--layout none` to leave raw keycodes alone.
+The layer headings are inferred from their contents; explicit `--layer-names`
+remains available for unusual saves.
+
+The README image is maintained by the Python pre-commit hook in `.githooks/`.
+It chooses the alphabetically last `.vil` file, regenerates only when its
+inputs or renderer configuration changed, updates the marked README block,
+and stages the generated assets automatically. Run it manually when desired:
+
+```bash
+uv run --locked -m tools.helper refresh-readme
+```
+
+`uv` can run this helper directly from native Windows PowerShell or from WSL;
+WSL is only required for the documented firmware/container commands.
 Visualization is not part of the firmware build or verification path. The
-helper always reads and writes project files using their repository locations,
-regardless of the current directory.
+helper reads and writes project files using their repository locations.
 
 ## Repository layout
 
 ```text
 firmware/     editable keyboard firmware and Vial metadata
 tools/        optional keymap/recovery helpers
+              layouts.yaml contains host-layout resolution data
 infra/        Podman image, pinned build contract, and launcher scripts
-assets/       committed visualizations used by the main README
+assets/       committed SVG/PNG visualizations used by the main README
 docs/         notes and design records
 reference/    recovery material and archived historical exports
 .github/      image publishing workflow

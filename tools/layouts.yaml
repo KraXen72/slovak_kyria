@@ -1,0 +1,294 @@
+# Host-layout output tables used when rendering modified QMK keycodes.
+#
+# The maps describe the characters produced by physical QMK keycodes.  They
+# intentionally live outside helper.py so adding or correcting a host layout
+# does not require changing the renderer.
+
+layouts:
+  us:
+    label: US QWERTY
+    source: Standard US QWERTY physical-key mapping
+    maps:
+      base:
+        KC_GRAVE: "`"
+        KC_1: "1"
+        KC_2: "2"
+        KC_3: "3"
+        KC_4: "4"
+        KC_5: "5"
+        KC_6: "6"
+        KC_7: "7"
+        KC_8: "8"
+        KC_9: "9"
+        KC_0: "0"
+        KC_MINUS: "-"
+        KC_EQUAL: "="
+        KC_Q: Q
+        KC_W: W
+        KC_E: E
+        KC_R: R
+        KC_T: T
+        KC_Y: Y
+        KC_U: U
+        KC_I: I
+        KC_O: O
+        KC_P: P
+        KC_LBRACKET: "["
+        KC_RBRACKET: "]"
+        KC_A: A
+        KC_S: S
+        KC_D: D
+        KC_F: F
+        KC_G: G
+        KC_H: H
+        KC_J: J
+        KC_K: K
+        KC_L: L
+        KC_SCOLON: ";"
+        KC_QUOTE: "'"
+        KC_BSLASH: "\\"
+        KC_Z: Z
+        KC_X: X
+        KC_C: C
+        KC_V: V
+        KC_B: B
+        KC_N: N
+        KC_M: M
+        KC_COMMA: ","
+        KC_DOT: "."
+        KC_SLASH: "/"
+        KC_NUBS: "\\"
+        KC_NONUS_BSLASH: "\\"
+        KC_NONUS_HASH: "#"
+      shift:
+        KC_GRAVE: "~"
+        KC_1: "!"
+        KC_2: "@"
+        KC_3: "#"
+        KC_4: "$"
+        KC_5: "%"
+        KC_6: "^"
+        KC_7: "&"
+        KC_8: "*"
+        KC_9: "("
+        KC_0: ")"
+        KC_MINUS: "_"
+        KC_EQUAL: "+"
+        KC_LBRACKET: "{"
+        KC_RBRACKET: "}"
+        KC_A: A
+        KC_S: S
+        KC_D: D
+        KC_F: F
+        KC_G: G
+        KC_H: H
+        KC_J: J
+        KC_K: K
+        KC_L: L
+        KC_SCOLON: ":"
+        KC_QUOTE: "\""
+        KC_BSLASH: "|"
+        KC_Z: Z
+        KC_X: X
+        KC_C: C
+        KC_V: V
+        KC_B: B
+        KC_N: N
+        KC_M: M
+        KC_COMMA: "<"
+        KC_DOT: ">"
+        KC_SLASH: "?"
+        KC_NUBS: "|"
+        KC_NONUS_BSLASH: "|"
+        KC_NONUS_HASH: "~"
+
+  slovak:
+    label: Slovak QWERTY
+    source: firmware/my_slovak_keymap.h
+    inherits: us
+    maps:
+      base:
+        KC_GRAVE: ";"
+        KC_1: "+"
+        KC_2: "ľ"
+        KC_3: "š"
+        KC_4: "č"
+        KC_5: "ť"
+        KC_6: "ž"
+        KC_7: "ý"
+        KC_8: "á"
+        KC_9: "í"
+        KC_0: "é"
+        KC_MINUS: "="
+        KC_EQUAL: "´"
+        KC_Y: Z
+        KC_Z: Y
+        KC_LBRACKET: "ú"
+        KC_RBRACKET: "ä"
+        KC_SCOLON: "ô"
+        KC_QUOTE: "§"
+        KC_NUBS: "&"
+        KC_NONUS_HASH: "ň"
+        KC_SLASH: "-"
+      shift:
+        KC_GRAVE: "°"
+        KC_1: "1"
+        KC_2: "2"
+        KC_3: "3"
+        KC_4: "4"
+        KC_5: "5"
+        KC_6: "6"
+        KC_7: "7"
+        KC_8: "8"
+        KC_9: "9"
+        KC_0: "0"
+        KC_MINUS: "%"
+        KC_EQUAL: "ˇ"
+        KC_Y: Z
+        KC_Z: Y
+        KC_LBRACKET: "/"
+        KC_RBRACKET: "("
+        KC_SCOLON: "\""
+        KC_QUOTE: "!"
+        KC_NUBS: "*"
+        KC_NONUS_HASH: ")"
+        KC_COMMA: "?"
+        KC_DOT: ":"
+        KC_SLASH: "_"
+      altgr:
+        KC_1: "~"
+        KC_2: "ˇ"
+        KC_3: "^"
+        KC_4: "˘"
+        KC_5: "°"
+        KC_6: "˛"
+        KC_7: "`"
+        KC_8: "˙"
+        KC_0: "˝"
+        KC_MINUS: "¨"
+        KC_EQUAL: "¸"
+        KC_Q: "\\"
+        KC_W: "|"
+        KC_E: "€"
+        KC_P: "'"
+        KC_LBRACKET: "÷"
+        KC_RBRACKET: "×"
+        KC_S: "đ"
+        KC_D: "Đ"
+        KC_F: "["
+        KC_G: "]"
+        KC_K: "ł"
+        KC_L: "Ł"
+        KC_SCOLON: "$"
+        KC_QUOTE: "ß"
+        KC_NONUS_HASH: "¤"
+        KC_NUBS: "<"
+        KC_Z: ">"
+        KC_X: "#"
+        KC_C: "@"
+        KC_V: "{"
+        KC_B: "}"
+        KC_NUHS: "¤"
+
+  eurkey:
+    label: EurKEY 1.3 (patched)
+    source: user-provided eurkey-source-13patched.klc
+    source_sha256: CE2398AEC165E2F58F740E9DBFF52EB43AF87E7A038C99EDFC968FE63B2552F
+    inherits: us
+    maps:
+      altgr:
+        KC_1: "¡"
+        KC_2: "ª"
+        KC_3: "º"
+        KC_4: "£"
+        KC_5: "€"
+        KC_6: "^"
+        KC_7: "˚"
+        KC_8: "„"
+        KC_9: "“"
+        KC_0: "”"
+        KC_MINUS: "©"
+        KC_EQUAL: "×"
+        KC_Q: "æ"
+        KC_W: "å"
+        KC_E: "ë"
+        KC_R: "ý"
+        KC_T: "þ"
+        KC_Y: "ÿ"
+        KC_U: "ü"
+        KC_I: "ï"
+        KC_O: "ö"
+        KC_P: "œ"
+        KC_LBRACKET: "«"
+        KC_RBRACKET: "»"
+        KC_A: "ä"
+        KC_S: "ß"
+        KC_D: "đ"
+        KC_F: "è"
+        KC_G: "é"
+        KC_H: "ù"
+        KC_J: "ú"
+        KC_K: "ĳ"
+        KC_L: "ø"
+        KC_SCOLON: "°"
+        KC_QUOTE: "´"
+        KC_GRAVE: "`"
+        KC_BSLASH: "¬"
+        KC_Z: "à"
+        KC_X: "á"
+        KC_C: "ç"
+        KC_V: "ì"
+        KC_B: "í"
+        KC_N: "ñ"
+        KC_M: "Ω"
+        KC_COMMA: "ò"
+        KC_DOT: "ó"
+        KC_SLASH: "¿"
+      shift_altgr:
+        KC_1: "¹"
+        KC_2: "²"
+        KC_3: "³"
+        KC_4: "¥"
+        KC_5: "¢"
+        KC_6: "ˇ"
+        KC_7: "¯"
+        KC_8: "‚"
+        KC_9: "‘"
+        KC_0: "’"
+        KC_MINUS: "№"
+        KC_EQUAL: "÷"
+        KC_Q: "Æ"
+        KC_W: "Å"
+        KC_E: "Ë"
+        KC_R: "Ý"
+        KC_T: "Þ"
+        KC_Y: "Ÿ"
+        KC_U: "Ü"
+        KC_I: "Ï"
+        KC_O: "Ö"
+        KC_P: "Œ"
+        KC_LBRACKET: "‹"
+        KC_RBRACKET: "›"
+        KC_A: "Ä"
+        KC_S: "§"
+        KC_D: "Đ"
+        KC_F: "È"
+        KC_G: "É"
+        KC_H: "Ù"
+        KC_J: "Ú"
+        KC_K: "Ĳ"
+        KC_L: "Ø"
+        KC_SCOLON: "·"
+        KC_QUOTE: "¨"
+        KC_GRAVE: "~"
+        KC_BSLASH: "¦"
+        KC_Z: "À"
+        KC_X: "Á"
+        KC_C: "Ç"
+        KC_V: "Ì"
+        KC_B: "Í"
+        KC_N: "Ñ"
+        KC_M: " "
+        KC_COMMA: "Ò"
+        KC_DOT: "Ó"
+        KC_SLASH: "…"

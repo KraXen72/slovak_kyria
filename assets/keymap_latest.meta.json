@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "source": "vial_saves/v2_9.vil",
+  "source_sha256": "3a44f8c90af0df712e431f538ed870b986cd948848087fa1d6467a3fa95ba9e1",
+  "layout": "eurkey",
+  "layers": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "layer_names": [
+    "Base",
+    "Layer1",
+    "NavFn",
+    "Symbols",
+    "RGB",
+    "Accents"
+  ],
+  "fingerprint": "785fa8ec9f7779e7dd681371bb85e26cf944ceaa03e124b988e5c92b26095c80"
+}

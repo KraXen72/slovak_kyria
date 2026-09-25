@@ -4,8 +4,11 @@ version = "0.1.0"
 description = "Development helpers for the Slovak Kyria keymap"
 requires-python = ">=3.12,<4"
 dependencies = [
+    "affine>=2.4,<3",
     "click>=8.1,<9",
     "keymap-drawer==0.23.0",
+    "pyyaml>=6.0,<7",
+    "resvg==0.2.0",
     "vial-to-keymap @ git+https://github.com/Nisker/vial-to-keymap.git",
 ]
 

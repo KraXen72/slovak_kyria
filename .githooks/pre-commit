@@ -1,0 +1,50 @@
+#!/usr/bin/env python
+"""Keep the committed README visualization synchronized before each commit."""
+
+from __future__ import annotations
+
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+GENERATED_PATHS = [
+    "readme.md",
+    "assets/keymap_latest.yaml",
+    "assets/keymap_latest.json",
+    "assets/keymap_latest.svg",
+    "assets/keymap_latest.png",
+    "assets/keymap_latest.meta.json",
+]
+
+
+def main() -> int:
+    """Run the locked helper and stage the files it owns."""
+    uv = shutil.which("uv")
+    if uv is None:
+        print("pre-commit: 'uv' is required to refresh the README visualization", file=sys.stderr)
+        return 1
+
+    result = subprocess.run(
+        [uv, "run", "--locked", "-m", "tools.helper", "refresh-readme"],
+        cwd=ROOT,
+        check=False,
+    )
+    if result.returncode:
+        return result.returncode
+
+    git = shutil.which("git")
+    if git is None:
+        print("pre-commit: 'git' is required to stage generated visualization files", file=sys.stderr)
+        return 1
+    return subprocess.run(
+        [git, "add", "--", *GENERATED_PATHS],
+        cwd=ROOT,
+        check=False,
+    ).returncode
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
