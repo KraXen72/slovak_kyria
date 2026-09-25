@@ -1,0 +1,9 @@
+.git
+.gitignore
+vial-qmk
+build
+.build
+vial_saves
+*.vil
+*.png
+*.svg

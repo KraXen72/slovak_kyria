@@ -1,26 +1,12 @@
 {
-  "name": "vial-qmk-legacy",
-  "image": "ghcr.io/kraxen72/vial-qmk-legacy:latest",
-  "workspaceFolder": "/opt/vial-qmk-legacy",
+  "name": "Kyria firmware (legacy Vial AVR)",
+  "image": "ghcr.io/kraxen72/kyria-vial-legacy-dev:latest",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,Z",
   "mounts": [
-    "source=${localWorkspaceFolder},target=/bootstrap,type=bind,Z"
+    "source=kyria-vial-qmk,target=/workspace/vial-qmk,type=volume"
   ],
-  "features": {
-    "ghcr.io/kraxen72/devcontainer-features/common-utils-bash-prompt:1": {},
-    "ghcr.io/kraxen72/devcontainer-features/ssh-zed:2": {}
-  },
-  "runArgs": [
-    "--name=dcman-${localWorkspaceFolderBasename}",
-    "--publish=127.0.0.1:${localEnv:DCMANSSHPORT}:2222",
-    "--cap-drop=ALL",
-    "--cap-add=SETUID",
-    "--cap-add=SETGID",
-    "--security-opt=no-new-privileges",
-    "--tmpfs=/tmp:exec,mode=1777",
-    "--pids-limit=2048",
-    "--ulimit=nproc=2048:2048",
-    "--ulimit=nofile=65536:65536"
-  ],
-  "remoteUser": "vscode",
-  "updateRemoteUserUID": true
+  "workspaceFolder": "/workspace",
+  "remoteUser": "developer",
+  "updateRemoteUserUID": true,
+  "postCreateCommand": "bash /workspace/infra/container/initialize.sh"
 }

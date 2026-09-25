@@ -1,0 +1,47 @@
+name: Build development image
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.devcontainer.json'
+      - '.dockerignore'
+      - 'infra/container/**'
+      - '.github/workflows/dev-image.yml'
+  workflow_dispatch:
+
+env:
+  IMAGE_NAME: ghcr.io/kraxen72/kyria-vial-legacy-dev
+
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Check out the project
+        uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and publish the development image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: infra/container/Containerfile
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:latest
+            ${{ env.IMAGE_NAME }}:sha-${{ github.sha }}
+          cache-from: type=registry,ref=${{ env.IMAGE_NAME }}:buildcache
+          cache-to: type=registry,ref=${{ env.IMAGE_NAME }}:buildcache,mode=max
