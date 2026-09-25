@@ -21,7 +21,8 @@ if [[ $# -eq 0 ]]; then
     set -- bash
 fi
 
-IMAGE_REF="${KYRIA_DEV_IMAGE_REF:-${DEV_IMAGE}:${DEV_IMAGE_TAG}}"
+IMAGE_REF="${KYRIA_DEV_IMAGE_REF:-${DEV_IMAGE}@${DEV_IMAGE_DIGEST}}"
+LOCAL_IMAGE_REF="${KYRIA_DEV_LOCAL_IMAGE_REF:-localhost/kyria-vial-legacy-dev:local}"
 
 if ! podman image exists "$IMAGE_REF"; then
     printf 'Pulling %s...\n' "$IMAGE_REF"
@@ -29,8 +30,9 @@ if ! podman image exists "$IMAGE_REF"; then
         printf '\nThe prebuilt image is unavailable. Building the same image locally...\n'
         podman build \
             --file "$PROJECT_ROOT/infra/container/Containerfile" \
-            --tag "$IMAGE_REF" \
+            --tag "$LOCAL_IMAGE_REF" \
             "$PROJECT_ROOT"
+        IMAGE_REF="$LOCAL_IMAGE_REF"
     fi
 fi
 

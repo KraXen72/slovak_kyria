@@ -46,12 +46,11 @@ podman info
 Then, from the cloned repository:
 
 ```bash
-cd keymap
 bash infra/scripts/build.sh
 ```
 
-That command pulls the published GHCR development image. If the image is not
-available yet, it automatically builds the same
+That command pulls the pinned GHCR development image. If the image is not
+available, it automatically builds the same
 `infra/container/Containerfile` locally. The first run also clones the pinned
 QMK checkout and initializes its submodules.
 
@@ -129,12 +128,18 @@ compares a historical HEX if one is later added under
 
 ## Recovery
 
-The launcher uses the image in `infra/container/versions.env`. To update an already
-cached image explicitly:
+The launcher uses the immutable image digest in
+`infra/container/versions.env`. To pull that exact image explicitly:
 
 ```bash
-podman pull ghcr.io/kraxen72/kyria-vial-legacy-dev:latest
+podman pull ghcr.io/kraxen72/kyria-vial-legacy-dev@sha256:ed5089191a4f81d69caaad36c7d4fb83ae6c9efff6355eabc265325090bdea2d
 ```
+
+When intentionally updating the toolchain image, update the digest in both
+`infra/container/versions.env` and `.devcontainer.json` after the new image has
+been published and tested. If the pinned image cannot be pulled, the launcher
+uses the local tag `localhost/kyria-vial-legacy-dev:local` for its recovery
+build.
 
 The GHCR package must be public for a new machine to pull it without a login.
 If it is intentionally private, authenticate once with a GitHub token that

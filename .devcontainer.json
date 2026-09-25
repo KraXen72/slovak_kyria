@@ -1,6 +1,6 @@
 {
   "name": "Kyria firmware (legacy Vial AVR)",
-  "image": "ghcr.io/kraxen72/kyria-vial-legacy-dev:latest",
+  "image": "ghcr.io/kraxen72/kyria-vial-legacy-dev@sha256:ed5089191a4f81d69caaad36c7d4fb83ae6c9efff6355eabc265325090bdea2d",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,Z",
   "mounts": [
     "source=kyria-vial-qmk,target=/workspace/vial-qmk,type=volume"
