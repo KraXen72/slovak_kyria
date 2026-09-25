@@ -176,8 +176,10 @@ The optional helper uses `uv` and is separate from the firmware build. Install
 native Windows PowerShell as well as Linux/WSL; WSL is not required for this
 section:
 
-The helper project targets Python 3.12+; uv provisions that interpreter and
-uses the committed `uv.lock` file for its dependencies.
+The helper project targets Python 3.14; uv provisions that interpreter and
+uses the committed `uv.lock` file for its dependencies. The version is pinned
+in `.python-version` because the locked SVG rasterizer has platform wheels for
+that interpreter line.
 
 Install uv once if it is not already available. On Linux/WSL:
 
