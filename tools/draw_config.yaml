@@ -3,13 +3,41 @@ draw_config:
   glyph_tap_size: 20
   svg_extra_style: |
     svg.keymap {
-      background-color: #262a30;
+      background-color: #182333;
+      fill: #f8fafc;
     }
 
     svg.keymap use.glyph {
-      color: #d1d6db;
+      color: #f8fafc;
       fill: none;
       stroke: currentColor;
+    }
+
+    rect.key {
+      fill: #334155;
+    }
+
+    rect.key,
+    rect.combo {
+      stroke: #64748b;
+    }
+
+    rect.combo,
+    rect.combo-separate {
+      fill: #1e4d7a;
+    }
+
+    rect.held,
+    rect.combo.held {
+      fill: #914b55;
+    }
+
+    text.label,
+    text.footer {
+      fill: #ffffff;
+      stroke: #000000;
+      stroke-width: 5px;
+      paint-order: stroke fill;
     }
 
     .trans,
@@ -19,10 +47,6 @@ draw_config:
     }
     svg.keymap {
       font-size: 14px;
-    }
-    text.label,
-    text.footer {
-      stroke-width: 0;
     }
 
   # These are the original Lucide SVG paths, pinned to

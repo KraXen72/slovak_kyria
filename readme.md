@@ -1,7 +1,7 @@
 # Slovak Kyria keymap and firmware
 
 <!-- BEGIN GENERATED KEYMAP VISUALIZATION -->
-![Latest Vial save: Base, Layer1, NavFn, Symbols, RGB, Accents](assets/keymap_latest.png)
+![Latest Vial save: Base, Layer1, NavFn, Symbols, RGB, Accents](assets/keymap_latest.svg)
 
 The image above is generated from
 [`vial_saves/v2_53_mo4_on_thumb.vil`](vial_saves/v2_53_mo4_on_thumb.vil):
@@ -177,9 +177,7 @@ native Windows PowerShell as well as Linux/WSL; WSL is not required for this
 section:
 
 The helper project targets Python 3.14; uv provisions that interpreter and
-uses the committed `uv.lock` file for its dependencies. The version is pinned
-in `.python-version` because the locked SVG rasterizer has platform wheels for
-that interpreter line.
+uses the committed `uv.lock` file for its dependencies.
 
 Install uv once if it is not already available. On Linux/WSL:
 
@@ -207,9 +205,9 @@ uv run --locked -m tools.helper vis \
 ```
 
 `vis` works offline from a committed Vial save and writes the companion
-`keymap_latest.yaml`, `keymap_latest.json`, `keymap_latest.svg`,
-`keymap_latest.png`, and `keymap_latest.meta.json` files under `assets/` by
-default. It draws every layer unless `--layers` is supplied, resolves modified
+`keymap_latest.yaml`, `keymap_latest.json`, `keymap_latest.svg`, and
+`keymap_latest.meta.json` files under `assets/` by default. It draws every layer
+unless `--layers` is supplied, resolves modified
 keycodes against patched EurKEY by default, and accepts `--layout us`,
 `--layout slovak`, or explicit `--layout none` to leave raw keycodes alone.
 The layer headings are inferred from their contents; explicit `--layer-names`
@@ -238,7 +236,7 @@ firmware/     editable keyboard firmware and Vial metadata
 tools/        optional keymap/recovery helpers
               layouts.yaml contains host-layout resolution data
 infra/        Podman image, pinned build contract, and launcher scripts
-assets/       committed SVG/PNG visualizations used by the main README
+assets/       committed SVG visualization used by the main README
 docs/         notes and design records
 reference/    recovery material and archived historical exports
 .github/      image publishing workflow

@@ -36,7 +36,7 @@ README_PATH    = PROJECT_ROOT / "readme.md"
 ASSETS_DIR     = PROJECT_ROOT / "assets"
 
 _DEFAULT_LAYOUT = "eurkey"
-_OUTPUT_SUFFIXES = (".yaml", ".json", ".svg", ".png", ".meta.json")
+_OUTPUT_SUFFIXES = (".yaml", ".json", ".svg", ".meta.json")
 
 _KEY_LABELS = {
     "KC_ENTER": "Enter",
@@ -1023,7 +1023,7 @@ def viltokey(vil_file: Path):
     default=ASSETS_DIR / "keymap_latest",
     show_default=True,
     type=click.Path(dir_okay=False, path_type=Path),
-    help="Output path stem for the YAML, JSON, SVG, PNG, and metadata files.",
+    help="Output path stem for the YAML, JSON, SVG, and metadata files.",
 )
 def vis(
     vil_file: Path,
@@ -1034,7 +1034,7 @@ def vis(
 ):
     """Draw selected layers from a Vial save with keymap-drawer.
 
-    The generated YAML, layout JSON, SVG, PNG, and metadata are kept together
+    The generated YAML, layout JSON, SVG, and metadata are kept together
     so the image can be regenerated later from the committed Vial save and
     tool lockfile.
     """
@@ -1047,7 +1047,6 @@ def vis(
     )
     click.echo(f"wrote {result['key_count']} physical keys across layers {result['layers']}")
     click.echo(f"done — {result['svg_path']}")
-    click.echo(f"PNG — {result['png_path']}")
 
 
 def _project_path(path: Path) -> Path:
@@ -1129,26 +1128,6 @@ def _build_visualization_metadata(
     }
 
 
-def _write_png(svg_path: Path, png_path: Path) -> None:
-    """Rasterize the generated SVG with the self-contained resvg wheel."""
-    try:
-        from affine import Affine
-        from resvg import render, usvg
-    except ImportError as error:
-        raise click.ClickException(
-            "PNG generation requires the locked 'resvg' helper dependency; run 'uv sync' first"
-        ) from error
-
-    try:
-        options = usvg.Options.default()
-        options.load_system_fonts()
-        tree = usvg.Tree.from_str(svg_path.read_text(encoding="utf-8"), options)
-        png_data = render(tree, Affine.identity()[:6])
-        png_path.write_bytes(bytes(png_data))
-    except Exception as error:  # resvg exposes backend-specific exception types
-        raise click.ClickException(f"could not rasterize {svg_path.name} to PNG: {error}") from error
-
-
 def _render_visualization(
     vil_file: Path,
     layers: str | None,
@@ -1197,7 +1176,6 @@ def _render_visualization(
     json_path = output_stem.with_suffix(".json")
     yaml_path = output_stem.with_suffix(".yaml")
     svg_path = output_stem.with_suffix(".svg")
-    png_path = output_stem.with_suffix(".png")
     meta_path = output_stem.with_suffix(".meta.json")
 
     layout_json = build_layout_json(physical_keys)
@@ -1238,7 +1216,6 @@ def _render_visualization(
     if result.returncode != 0:
         raise click.ClickException("keymap draw failed — is keymap-drawer installed?")
 
-    _write_png(svg_path, png_path)
     metadata = _build_visualization_metadata(
         vil_file,
         layout.name if layout is not None else "none",
@@ -1252,7 +1229,6 @@ def _render_visualization(
         "layer_names": selected_layer_names,
         "source": vil_file,
         "svg_path": svg_path,
-        "png_path": png_path,
         "meta_path": meta_path,
         "metadata": metadata,
     }
@@ -1269,7 +1245,7 @@ def _readme_visualization_section(source: Path, layer_names: list[str]) -> str:
     return "\n".join(
         [
             _README_VIS_START,
-            f"![Latest Vial save: {labels}](assets/keymap_latest.png)",
+            f"![Latest Vial save: {labels}](assets/keymap_latest.svg)",
             "",
             "The image above is generated from",
             f"[`{source_name}`]({source_name}):",

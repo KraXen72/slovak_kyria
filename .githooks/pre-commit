@@ -15,7 +15,6 @@ GENERATED_PATHS = [
     "assets/keymap_latest.yaml",
     "assets/keymap_latest.json",
     "assets/keymap_latest.svg",
-    "assets/keymap_latest.png",
     "assets/keymap_latest.meta.json",
 ]
 
