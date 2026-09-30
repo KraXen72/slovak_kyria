@@ -825,6 +825,8 @@ def _format_keycode(
         ]
         return f"{operation}({', '.join(str(argument) for argument in rendered_arguments)})"
 
+    if use_icons and token in {"KC_BSPACE", "KC_BSPC"}:
+        return "$$icon_backspace$$"
     if use_icons and token in {"RGB_VAI", "RGB_VAD"}:
         return {"t": _ICON_LABELS[token], "s": "RGB", "type": "rgb"}
     return _display_atom(token, custom_keycodes, use_icons=use_icons)

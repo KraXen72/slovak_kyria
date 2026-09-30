@@ -28,6 +28,14 @@
 </svg>
 
 </svg>
+<svg id="icon_backspace">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M10 5a2 2 0 0 0-1.344.519l-6.328 5.74a1 1 0 0 0 0 1.481l6.328 5.741A2 2 0 0 0 10 19h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z" />
+  <path d="m12 9 6 6" />
+  <path d="m18 9-6 6" />
+</svg>
+
+</svg>
 <svg id="icon_play">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" />
@@ -468,7 +476,7 @@ text.chord.tap {
 </g>
 <g transform="translate(341, 241) rotate(30.0)" class="key keypos-42">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">Bksp</text>
+<use href="#icon_backspace" xlink:href="#icon_backspace" x="-10" y="-10" height="20" width="20.0" class="key tap glyph icon_backspace"/>
 </g>
 <g transform="translate(429, 239) rotate(45.0)" class="key held keypos-43">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key held"/>
@@ -543,7 +551,7 @@ text.chord.tap {
 </g>
 <g transform="translate(924, 70)" class="key keypos-11">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">Bksp</text>
+<use href="#icon_backspace" xlink:href="#icon_backspace" x="-10" y="-10" height="20" width="20.0" class="key tap glyph icon_backspace"/>
 </g>
 <g transform="translate(196, 84)" class="key keypos-12">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
