@@ -4,7 +4,7 @@
 ![Latest Vial save: Base, Layer1, NavFn, Symbols, RGB, Accents](assets/keymap_latest.svg)
 
 The image above is generated from
-[`vial_saves/v2_53_mo4_on_thumb.vil`](vial_saves/v2_53_mo4_on_thumb.vil):
+[`vial_saves/v2_54_mo4_on_index.vil`](vial_saves/v2_54_mo4_on_index.vil):
 the Base, Layer1, NavFn, Symbols, RGB, Accents layers are shown in that order.
 <!-- END GENERATED KEYMAP VISUALIZATION -->
 

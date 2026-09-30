@@ -115,8 +115,8 @@ _RGB_LABELS = {
     "RGB_SAD": "Sat-",
     "RGB_HUI": "Hue+",
     "RGB_HUD": "Hue-",
-    "RGB_VAI": "Bright+",
-    "RGB_VAD": "Bright-",
+    "RGB_VAI": "RGB\nBright\n+",
+    "RGB_VAD": "RGB\nBright\n-",
     "RGB_M_P": "RGB\nPlain",
     "RGB_M_R": "RGB\nRainbow",
     "RGB_M_SW": "RGB\nSwirl",
@@ -132,8 +132,6 @@ _ICON_LABELS = {
     "KC_MPRV": "$$icon_skip_back$$",
     "KC_MPLY": "$$icon_play$$",
     "KC_MNXT": "$$icon_skip_forward$$",
-    "RGB_VAI": "$$icon_sun$$",
-    "RGB_VAD": "$$icon_sun_dim$$",
     "KC_VOLU": "$$icon_volume_high$$",
     "KC_VOLD": "$$icon_volume_low$$",
     "KC_MUTE": "$$icon_volume_mute$$",
@@ -827,8 +825,8 @@ def _format_keycode(
 
     if use_icons and token in {"KC_BSPACE", "KC_BSPC"}:
         return "$$icon_backspace$$"
-    if use_icons and token in {"RGB_VAI", "RGB_VAD"}:
-        return {"t": _ICON_LABELS[token], "s": "RGB", "type": "rgb"}
+    if token in {"RGB_VAI", "RGB_VAD"}:
+        return {"t": _RGB_LABELS[token], "type": "rgb"}
     return _display_atom(token, custom_keycodes, use_icons=use_icons)
 
 

@@ -52,13 +52,13 @@ draw_config:
       font-size: 16px;
     }
 
-    text.shortcut.shifted,
-    text.rgb.shifted {
+    text.shortcut.shifted {
       font-size: 14px;
     }
 
     /* Three rows at 14px fit inside a 52px keycap with 1.2em spacing. */
-    text.chord.tap {
+    text.chord.tap,
+    text.rgb.tap {
       font-size: 14px;
     }
 
@@ -122,28 +122,4 @@ draw_config:
         <path d="M11 4.702a.7.7 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.7.7 0 0 0 11 19.298z" />
         <path d="m16.5 14.5 5-5" />
         <path d="m16.5 9.5 5 5" />
-      </svg>
-    icon_sun_dim: |
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="4" />
-        <path d="M12 4h.01" />
-        <path d="M20 12h.01" />
-        <path d="M12 20h.01" />
-        <path d="M4 12h.01" />
-        <path d="M17.657 6.343h.01" />
-        <path d="M17.657 17.657h.01" />
-        <path d="M6.343 17.657h.01" />
-        <path d="M6.343 6.343h.01" />
-      </svg>
-    icon_sun: |
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="4" />
-        <path d="M12 2v2" />
-        <path d="M12 20v2" />
-        <path d="m4.93 4.93 1.41 1.41" />
-        <path d="m17.66 17.66 1.41 1.41" />
-        <path d="M2 12h2" />
-        <path d="M20 12h2" />
-        <path d="m6.34 17.66-1.41 1.41" />
-        <path d="m19.07 4.93-1.41 1.41" />
       </svg>
