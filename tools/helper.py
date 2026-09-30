@@ -796,10 +796,16 @@ def _format_keycode(
             }.get(operation)
             if modifier_label:
                 if isinstance(inner, str):
-                    # Separate modifier chords from the main legend so wrapping
-                    # cannot turn a shortcut into three overflowing lines.
                     if use_icons and arguments[0] in _ICON_LABELS:
                         inner = _display_atom(arguments[0], custom_keycodes)
+                    modifiers = modifier_label.split("+")
+                    if len(modifiers) == 2 and "\n" not in inner and not inner.startswith("$$"):
+                        # Three centered rows keep both modifiers readable;
+                        # the chord style sizes them to fit the key vertically.
+                        return {
+                            "t": "\n".join([f"{modifier}+" for modifier in modifiers] + [inner]),
+                            "type": "chord",
+                        }
                     label = f"{modifier_label}+"
                     if operation == "LALT" and arguments[0] in {"KC_LEFT", "KC_RIGHT"}:
                         label = modifier_label

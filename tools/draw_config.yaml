@@ -57,6 +57,11 @@ draw_config:
       font-size: 14px;
     }
 
+    /* Three rows at 14px fit inside a 52px keycap with 1.2em spacing. */
+    text.chord.tap {
+      font-size: 14px;
+    }
+
   # These are the original Lucide SVG paths, pinned to
   # lucide-icons/lucide@66d8f9fc394b8530377e5f6112f0b8908ba01280.
   # Wider media viewBoxes make those controls about 14% smaller.
