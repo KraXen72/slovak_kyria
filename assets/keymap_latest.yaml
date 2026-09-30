@@ -27,11 +27,11 @@ layers:
     - [B, N]
     - [Shift, Z]
     - [/, {t: Acc, type: held}]
-    - [Esc, {t: RGB, type: held}]
+    - [Esc, {t: Hot, type: held}]
     - [GUI, {t: Nav, type: held}]
     - [{t: Enter, h: Alt}, Caps Lock]
     - [$$icon_backspace$$, {type: trans}]
-    - [{t: Nav, type: held}, {t: RGB, type: held}]
+    - [{t: Nav, type: held}, {t: Hot, type: held}]
     - [{t: Sym, type: held}, Del]
     - [Space, Enter]
 
@@ -74,7 +74,7 @@ Up']
     - [Shift, $$icon_arrow_down$$]
     - [Del, Ctrl]
     - [$$icon_arrow_left$$, $$icon_arrow_right$$]
-    - [{t: RGB, type: held}, 'Page
+    - [{t: Hot, type: held}, 'Page
 Down']
     - [F7, F5]
     - [$$icon_volume_low$$, Ins]
@@ -122,7 +122,7 @@ Break']
     - [{type: held}, {type: trans}]
     - [Shift, Ctrl]
 
-  RGB:
+  Hot:
     - [{type: trans}, Hue+]
     - [{type: trans}, {type: trans}]
     - [Sat-, Hue-]

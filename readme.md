@@ -1,11 +1,11 @@
 # Slovak Kyria keymap and firmware
 
 <!-- BEGIN GENERATED KEYMAP VISUALIZATION -->
-![Latest Vial save: Base, Layer1, NavFn, Symbols, RGB, Accents](assets/keymap_latest.svg)
+![Latest Vial save: Base, Layer1, NavFn, Symbols, Hot, Accents](assets/keymap_latest.svg)
 
 The image above is generated from
 [`vial_saves/v2_54_mo4_on_index.vil`](vial_saves/v2_54_mo4_on_index.vil):
-the Base, Layer1, NavFn, Symbols, RGB, Accents layers are shown in that order.
+the Base, Layer1, NavFn, Symbols, Hot, Accents layers are shown in that order.
 <!-- END GENERATED KEYMAP VISUALIZATION -->
 
 This repository is the editable project layer for a Kyria rev1 using the

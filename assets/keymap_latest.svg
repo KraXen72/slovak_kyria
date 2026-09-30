@@ -424,8 +424,8 @@ text.rgb.tap {
 </g>
 <g transform="translate(784, 210)" class="key held keypos-37">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key held"/>
-<a href="#RGB">
-<text x="0" y="0" class="key held tap layer-activator">RGB</text>
+<a href="#Hot">
+<text x="0" y="0" class="key held tap layer-activator">Hot</text>
 </a></g>
 <g transform="translate(224, 210)" class="key keypos-38">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -459,8 +459,8 @@ text.rgb.tap {
 </g>
 <g transform="translate(523, 239) rotate(-45.0)" class="key held keypos-45">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key held"/>
-<a href="#RGB">
-<text x="0" y="0" class="key held tap layer-activator">RGB</text>
+<a href="#Hot">
+<text x="0" y="0" class="key held tap layer-activator">Hot</text>
 </a></g>
 <g transform="translate(563, 278) rotate(-45.0)" class="key held keypos-46">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key held"/>
@@ -729,8 +729,8 @@ text.rgb.tap {
 </g>
 <g transform="translate(308, 105)" class="key held keypos-18">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key held"/>
-<a href="#RGB">
-<text x="0" y="0" class="key held tap layer-activator">RGB</text>
+<a href="#Hot">
+<text x="0" y="0" class="key held tap layer-activator">Hot</text>
 </a></g>
 <g transform="translate(644, 105)" class="key keypos-19">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -1050,8 +1050,8 @@ text.rgb.tap {
 </g>
 </g>
 </g>
-<g transform="translate(30, 1496)" class="layer-RGB">
-<text x="0" y="28" class="label" id="RGB">RGB:</text>
+<g transform="translate(30, 1496)" class="layer-Hot">
+<text x="0" y="28" class="label" id="Hot">Hot:</text>
 <g transform="translate(0, 56)">
 <g transform="translate(196, 28)" class="key trans keypos-0">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>

@@ -195,8 +195,8 @@ _LAYER_LABELS = {
     "NavFn": "Nav",
     "Symbols": "Sym",
     "Function": "Fn",
-    "RGB": "RGB",
-    "RGB / Adjust": "RGB",
+    "RGB": "Hot",
+    "RGB / Adjust": "Hot",
 }
 
 _LAYOUT_MODIFIERS = {
@@ -605,7 +605,7 @@ def _infer_layer_names(
         elif has_accents:
             candidate = "Accents"
         elif has_rgb:
-            candidate = "RGB"
+            candidate = "Hot"
         elif has_nav and has_function:
             candidate = "NavFn"
         elif has_nav:
