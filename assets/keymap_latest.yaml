@@ -81,8 +81,7 @@ Down']
     - [F3, $$icon_play$$]
     - [F2, F4]
     - [$$icon_skip_back$$, $$icon_skip_forward$$]
-    - ['Shift+Gui
-Z', 'Pause
+    - [{t: Z, s: Shift+Gui+, type: shortcut}, 'Pause
 Break']
     - [F8, F1]
     - [$$icon_volume_mute$$, {type: trans}]
@@ -91,11 +90,8 @@ Break']
     - [Alt, {type: trans}]
     - [{type: trans}, {type: trans}]
     - [{type: held}, ScrLk]
-    - ['Alt
-Left', 'Gui
-L']
-    - [{type: trans}, 'Alt
-Right']
+    - [{t: $$icon_arrow_left$$, s: Alt+, type: shortcut}, {t: L, s: Gui+, type: shortcut}]
+    - [{type: trans}, {t: $$icon_arrow_right$$, s: Alt+, type: shortcut}]
 
   Symbols:
     - [3, 8]
@@ -132,31 +128,19 @@ Right']
     - [{type: trans}, {type: trans}]
     - [{type: trans}, 'RGB
 Plain']
-    - ['Gui
-2', 'Shift+Gui
-]']
-    - ['Gui
-3', 'Gui
-1']
-    - ['Shift+Gui
-[', 'Shift+Gui
-E']
+    - [{t: 2, s: Gui+, type: shortcut}, {t: ']', s: Shift+Gui+, type: shortcut}]
+    - [{t: 3, s: Gui+, type: shortcut}, {t: 1, s: Gui+, type: shortcut}]
+    - [{t: '[', s: Shift+Gui+, type: shortcut}, {t: E, s: Shift+Gui+, type: shortcut}]
     - [{type: trans}, 'RGB
 Toggle']
-    - [{type: trans}, 'Gui
-4']
-    - ['Shift+Gui
-D', 'RGB
+    - [{type: trans}, {t: 4, s: Gui+, type: shortcut}]
+    - [{t: D, s: Shift+Gui+, type: shortcut}, 'RGB
 Rainbow']
-    - ['Gui
-6', {type: trans}]
-    - ['Gui
-7', 'Gui
-5']
+    - [{t: 6, s: Gui+, type: shortcut}, {type: trans}]
+    - [{t: 7, s: Gui+, type: shortcut}, {t: 5, s: Gui+, type: shortcut}]
     - [{type: trans}, {type: trans}]
     - [{type: trans}, {type: trans}]
-    - [{type: trans}, 'Gui
-8']
+    - [{type: trans}, {t: 8, s: Gui+, type: shortcut}]
     - [{type: trans}, 'RGB
 Swirl']
     - [{type: trans}, $$icon_sun$$]

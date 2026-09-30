@@ -795,6 +795,12 @@ def _format_keycode(
                 "SGUI": "Shift+Gui",
             }.get(operation)
             if modifier_label:
+                if isinstance(inner, str):
+                    # Separate modifier chords from the main legend so wrapping
+                    # cannot turn a shortcut into three overflowing lines.
+                    if use_icons and arguments[0] in _ICON_LABELS:
+                        inner = _display_atom(arguments[0], custom_keycodes)
+                    return {"t": inner, "s": f"{modifier_label}+", "type": "shortcut"}
                 return f"{modifier_label}\n{inner}"
             return f"{_MODIFIER_WRAPPERS[operation]}{inner}"
 
