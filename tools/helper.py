@@ -48,27 +48,29 @@ _KEY_LABELS = {
     "KC_TAB": "Tab",
     "KC_SPACE": "Space",
     "KC_SPC": "Space",
-    "KC_CAPSLOCK": "Caps",
-    "KC_CAPS": "Caps",
+    "KC_CAPSLOCK": "Caps Lock",
+    "KC_CAPS": "Caps Lock",
     "KC_DELETE": "Del",
     "KC_DEL": "Del",
-    "KC_PSCREEN": "PrtSc",
-    "KC_PSCR": "PrtSc",
+    "KC_PSCREEN": "Print\nScreen",
+    "KC_PSCR": "Print\nScreen",
+    "KC_PAUSE": "Pause\nBreak",
+    "KC_PAUS": "Pause\nBreak",
     "KC_SCROLLLOCK": "ScrLk",
     "KC_SLCK": "ScrLk",
-    "KC_PAGEUP": "PgUp",
-    "KC_PGUP": "PgUp",
-    "KC_PAGEDOWN": "PgDn",
-    "KC_PGDOWN": "PgDn",
-    "KC_PGDN": "PgDn",
+    "KC_PAGEUP": "Page\nUp",
+    "KC_PGUP": "Page\nUp",
+    "KC_PAGEDOWN": "Page\nDown",
+    "KC_PGDOWN": "Page\nDown",
+    "KC_PGDN": "Page\nDown",
     "KC_LCTRL": "Ctrl",
     "KC_RCTRL": "Ctrl",
     "KC_LCTL": "Ctrl",
     "KC_RCTL": "Ctrl",
-    "KC_LSHIFT": "SFT",
-    "KC_RSHIFT": "SFT",
-    "KC_LSFT": "SFT",
-    "KC_RSFT": "SFT",
+    "KC_LSHIFT": "Shift",
+    "KC_RSHIFT": "Shift",
+    "KC_LSFT": "Shift",
+    "KC_RSFT": "Shift",
     "KC_LALT": "Alt",
     "KC_RALT": "AltGr",
     "KC_LGUI": "GUI",
@@ -108,18 +110,18 @@ _KEY_LABELS = {
 }
 
 _RGB_LABELS = {
-    "RGB_TOG": "RGB",
+    "RGB_TOG": "RGB\nToggle",
     "RGB_SAI": "Sat+",
     "RGB_SAD": "Sat-",
     "RGB_HUI": "Hue+",
     "RGB_HUD": "Hue-",
     "RGB_VAI": "Bright+",
     "RGB_VAD": "Bright-",
-    "RGB_M_P": "Mode+",
-    "RGB_M_R": "Mode-",
-    "RGB_M_SW": "Mode",
-    "RGB_MOD": "Mode+",
-    "RGB_RMOD": "Mode-",
+    "RGB_M_P": "RGB\nPlain",
+    "RGB_M_R": "RGB\nRainbow",
+    "RGB_M_SW": "RGB\nSwirl",
+    "RGB_MOD": "RGB\nNext",
+    "RGB_RMOD": "RGB\nPrev",
 }
 
 _ICON_LABELS = {
@@ -130,7 +132,8 @@ _ICON_LABELS = {
     "KC_MPRV": "$$icon_skip_back$$",
     "KC_MPLY": "$$icon_play$$",
     "KC_MNXT": "$$icon_skip_forward$$",
-    "KC_PAUSE": "$$icon_pause$$",
+    "RGB_VAI": "$$icon_sun$$",
+    "RGB_VAD": "$$icon_sun_dim$$",
     "KC_VOLU": "$$icon_volume_high$$",
     "KC_VOLD": "$$icon_volume_low$$",
     "KC_MUTE": "$$icon_volume_mute$$",
@@ -144,7 +147,6 @@ _ICON_TEXT_LABELS = {
     "KC_MPRV": "Prev",
     "KC_MPLY": "Play",
     "KC_MNXT": "Next",
-    "KC_PAUSE": "Pause",
     "KC_VOLU": "Vol+",
     "KC_VOLD": "Vol-",
     "KC_MUTE": "Mute",
@@ -157,11 +159,11 @@ _MODIFIER_LABELS = {
     "RCTL": "Ctrl",
     "MOD_LCTL": "Ctrl",
     "MOD_RCTL": "Ctrl",
-    "S": "SFT",
-    "LSFT": "SFT",
-    "RSFT": "SFT",
-    "MOD_LSFT": "SFT",
-    "MOD_RSFT": "SFT",
+    "S": "Shift",
+    "LSFT": "Shift",
+    "RSFT": "Shift",
+    "MOD_LSFT": "Shift",
+    "MOD_RSFT": "Shift",
     "A": "Alt",
     "LALT": "Alt",
     "RALT": "AltGr",
@@ -726,7 +728,9 @@ def _format_keycode(
                 target_name = _layer_label(target, layer_names)
                 if operation == "MO":
                     return {"t": target_name, "type": "held"}
-                if operation in {"TO", "DF"}:
+                if operation == "DF":
+                    return f"Def.L\n{target_name}"
+                if operation == "TO":
                     return target_name
                 return f"{operation}({target_name})"
 

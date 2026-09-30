@@ -25,11 +25,11 @@ layers:
     - [X, V]
     - [M, .]
     - [B, N]
-    - [SFT, Z]
+    - [Shift, Z]
     - [/, {t: Acc, type: held}]
     - [Esc, {t: RGB, type: held}]
     - [GUI, {t: Nav, type: held}]
-    - [{t: Enter, h: Alt}, Caps]
+    - [{t: Enter, h: Alt}, Caps Lock]
     - [Bksp, {t: RGB, type: held}]
     - [{t: Nav, type: held}, {t: RGB, type: held}]
     - [{t: Sym, type: held}, Del]
@@ -46,7 +46,7 @@ layers:
     - [S, {type: trans}]
     - [{type: trans}, {type: trans}]
     - [{type: trans}, {type: trans}]
-    - [SFT, Q]
+    - [Shift, Q]
     - [{type: trans}, {type: trans}]
     - [{type: trans}, {type: trans}]
     - [{type: trans}, {type: trans}]
@@ -66,20 +66,24 @@ layers:
     - [F11, $$icon_arrow_up$$]
     - [F10, F12]
     - [Home, End]
-    - [PrtSc, PgUp]
+    - ['Print
+Screen', 'Page
+Up']
     - [F6, F9]
     - [$$icon_volume_high$$, {type: trans}]
-    - [SFT, $$icon_arrow_down$$]
+    - [Shift, $$icon_arrow_down$$]
     - [Del, Ctrl]
     - [$$icon_arrow_left$$, $$icon_arrow_right$$]
-    - [Alt, PgDn]
+    - [Alt, 'Page
+Down']
     - [F7, F5]
     - [$$icon_volume_low$$, Ins]
     - [F3, $$icon_play$$]
     - [F2, F4]
     - [$$icon_skip_back$$, $$icon_skip_forward$$]
     - ['Shift+Gui
-Z', $$icon_pause$$]
+Z', 'Pause
+Break']
     - [F8, F1]
     - [$$icon_volume_mute$$, {type: trans}]
     - [{type: trans}, {type: trans}]
@@ -118,7 +122,7 @@ Right']
     - [{type: trans}, {type: trans}]
     - [{type: trans}, {type: trans}]
     - [{type: held}, {type: trans}]
-    - [SFT, Ctrl]
+    - [Shift, Ctrl]
 
   RGB:
     - [{type: trans}, Hue+]
@@ -126,7 +130,8 @@ Right']
     - [Sat-, Hue-]
     - [{type: trans}, Sat+]
     - [{type: trans}, {type: trans}]
-    - [{type: trans}, Mode+]
+    - [{type: trans}, 'RGB
+Plain']
     - ['Gui
 2', 'Shift+Gui
 ]']
@@ -136,11 +141,13 @@ Right']
     - ['Shift+Gui
 [', 'Shift+Gui
 E']
-    - [{type: trans}, RGB]
+    - [{type: trans}, 'RGB
+Toggle']
     - [{type: trans}, 'Gui
 4']
     - ['Shift+Gui
-D', Mode-]
+D', 'RGB
+Rainbow']
     - ['Gui
 6', {type: trans}]
     - ['Gui
@@ -150,13 +157,16 @@ D', Mode-]
     - [{type: trans}, {type: trans}]
     - [{type: trans}, 'Gui
 8']
-    - [{type: trans}, Mode]
-    - [{type: trans}, Bright+]
-    - [{type: trans}, Bright-]
+    - [{type: trans}, 'RGB
+Swirl']
+    - [{type: trans}, $$icon_sun$$]
+    - [{type: trans}, $$icon_sun_dim$$]
     - [{type: trans}, {type: trans}]
     - [{type: trans}, {type: held}]
-    - [{type: trans}, Base]
-    - [{type: trans}, Layer1]
+    - [{type: trans}, 'Def.L
+Base']
+    - [{type: trans}, 'Def.L
+Layer1']
     - [{type: trans}, {type: trans}]
 
   Accents:

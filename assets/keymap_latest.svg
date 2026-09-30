@@ -28,30 +28,51 @@
 </svg>
 
 </svg>
-<svg id="icon_pause">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <rect x="14" y="3" rx="1" />
-  <rect x="5" y="3" rx="1" />
-</svg>
-
-</svg>
 <svg id="icon_play">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" />
 </svg>
 
 </svg>
 <svg id="icon_skip_back">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="M17.971 4.285A2 2 0 0 1 21 6v12a2 2 0 0 1-3.029 1.715l-9.997-5.998a2 2 0 0 1-.003-3.432z" />
   <path d="M3 20V4" />
 </svg>
 
 </svg>
 <svg id="icon_skip_forward">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="M21 4v16" />
   <path d="M6.029 4.285A2 2 0 0 0 3 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z" />
+</svg>
+
+</svg>
+<svg id="icon_sun">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="4" />
+  <path d="M12 2v2" />
+  <path d="M12 20v2" />
+  <path d="m4.93 4.93 1.41 1.41" />
+  <path d="m17.66 17.66 1.41 1.41" />
+  <path d="M2 12h2" />
+  <path d="M20 12h2" />
+  <path d="m6.34 17.66-1.41 1.41" />
+  <path d="m19.07 4.93-1.41 1.41" />
+</svg>
+
+</svg>
+<svg id="icon_sun_dim">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="12" cy="12" r="4" />
+  <path d="M12 4h.01" />
+  <path d="M20 12h.01" />
+  <path d="M12 20h.01" />
+  <path d="M4 12h.01" />
+  <path d="M17.657 6.343h.01" />
+  <path d="M17.657 17.657h.01" />
+  <path d="M6.343 17.657h.01" />
+  <path d="M6.343 6.343h.01" />
 </svg>
 
 </svg>
@@ -214,7 +235,7 @@ text.trans { fill: #7e8184; }
 path.combo { stroke: #7f7f7f; }
 
 svg.keymap {
-  background-color: #182333;
+  background-color: #1d242e;
   fill: #f8fafc;
 }
 
@@ -225,22 +246,22 @@ svg.keymap use.glyph {
 }
 
 rect.key {
-  fill: #334155;
+  fill: #39424f;
 }
 
 rect.key,
 rect.combo {
-  stroke: #64748b;
+  stroke: #6b7584;
 }
 
 rect.combo,
 rect.combo-separate {
-  fill: #1e4d7a;
+  fill: #2e4d6a;
 }
 
 rect.held,
 rect.combo.held {
-  fill: #914b55;
+  fill: #85575e;
 }
 
 text.label,
@@ -257,7 +278,7 @@ text.footer {
   opacity: 0.6;
 }
 svg.keymap {
-  font-size: 14px;
+  font-size: 16px;
 }
 </style>
 <g transform="translate(30, 0)" class="layer-Base">
@@ -393,7 +414,7 @@ svg.keymap {
 </g>
 <g transform="translate(28, 182)" class="key keypos-32">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">SFT</text>
+<text x="0" y="0" class="key tap">Shift</text>
 </g>
 <g transform="translate(84, 182)" class="key keypos-33">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -431,7 +452,9 @@ svg.keymap {
 </g>
 <g transform="translate(369, 193) rotate(30.0)" class="key keypos-41">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">Caps</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">Caps</tspan><tspan x="0" dy="1.2em">Lock</tspan>
+</text>
 </g>
 <g transform="translate(341, 241) rotate(30.0)" class="key keypos-42">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -540,7 +563,7 @@ svg.keymap {
 </g>
 <g transform="translate(28, 126)" class="key keypos-20">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">SFT</text>
+<text x="0" y="0" class="key tap">Shift</text>
 </g>
 <g transform="translate(84, 126)" class="key keypos-21">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -667,11 +690,15 @@ svg.keymap {
 </g>
 <g transform="translate(308, 49)" class="key keypos-6">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">PrtSc</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">Print</tspan><tspan x="0" dy="1.2em">Screen</tspan>
+</text>
 </g>
 <g transform="translate(644, 49)" class="key keypos-7">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">PgUp</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">Page</tspan><tspan x="0" dy="1.2em">Up</tspan>
+</text>
 </g>
 <g transform="translate(28, 70)" class="key keypos-8">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -690,7 +717,7 @@ svg.keymap {
 </g>
 <g transform="translate(196, 84)" class="key keypos-12">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">SFT</text>
+<text x="0" y="0" class="key tap">Shift</text>
 </g>
 <g transform="translate(756, 84)" class="key keypos-13">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -718,7 +745,9 @@ svg.keymap {
 </g>
 <g transform="translate(644, 105)" class="key keypos-19">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">PgDn</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">Page</tspan><tspan x="0" dy="1.2em">Down</tspan>
+</text>
 </g>
 <g transform="translate(28, 126)" class="key keypos-20">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -768,7 +797,9 @@ svg.keymap {
 </g>
 <g transform="translate(644, 161)" class="key keypos-31">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<use href="#icon_pause" xlink:href="#icon_pause" x="-10" y="-10" height="20" width="20.0" class="key tap glyph icon_pause"/>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">Pause</tspan><tspan x="0" dy="1.2em">Break</tspan>
+</text>
 </g>
 <g transform="translate(28, 182)" class="key keypos-32">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -1025,7 +1056,7 @@ svg.keymap {
 </g>
 <g transform="translate(611, 241) rotate(-30.0)" class="key keypos-48">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">SFT</text>
+<text x="0" y="0" class="key tap">Shift</text>
 </g>
 <g transform="translate(667, 218) rotate(-15.0)" class="key keypos-49">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -1075,7 +1106,9 @@ svg.keymap {
 </g>
 <g transform="translate(924, 70)" class="key keypos-11">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">Mode+</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">RGB</tspan><tspan x="0" dy="1.2em">Plain</tspan>
+</text>
 </g>
 <g transform="translate(196, 84)" class="key keypos-12">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -1118,9 +1151,10 @@ svg.keymap {
 </g>
 <g transform="translate(644, 105)" class="key keypos-19">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<a href="#RGB">
-<text x="0" y="0" class="key tap layer-activator">RGB</text>
-</a></g>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">RGB</tspan><tspan x="0" dy="1.2em">Toggle</tspan>
+</text>
+</g>
 <g transform="translate(28, 126)" class="key trans keypos-20">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
 </g>
@@ -1138,7 +1172,9 @@ svg.keymap {
 </g>
 <g transform="translate(924, 126)" class="key keypos-23">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">Mode-</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em" style="font-size: 86%">RGB</tspan><tspan x="0" dy="1.2em" style="font-size: 86%">Rainbow</tspan>
+</text>
 </g>
 <g transform="translate(196, 140)" class="key keypos-24">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -1187,21 +1223,23 @@ svg.keymap {
 </g>
 <g transform="translate(924, 182)" class="key keypos-35">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">Mode</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">RGB</tspan><tspan x="0" dy="1.2em">Swirl</tspan>
+</text>
 </g>
 <g transform="translate(168, 210)" class="key trans keypos-36">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
 </g>
 <g transform="translate(784, 210)" class="key keypos-37">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">Bright+</text>
+<use href="#icon_sun" xlink:href="#icon_sun" x="-10" y="-10" height="20" width="20.0" class="key tap glyph icon_sun"/>
 </g>
 <g transform="translate(224, 210)" class="key trans keypos-38">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
 </g>
 <g transform="translate(728, 210)" class="key keypos-39">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">Bright-</text>
+<use href="#icon_sun_dim" xlink:href="#icon_sun_dim" x="-10" y="-10" height="20" width="20.0" class="key tap glyph icon_sun_dim"/>
 </g>
 <g transform="translate(285, 218) rotate(15.0)" class="key trans keypos-40">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
@@ -1220,17 +1258,19 @@ svg.keymap {
 </g>
 <g transform="translate(523, 239) rotate(-45.0)" class="key keypos-45">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<a href="#Base">
-<text x="0" y="0" class="key tap layer-activator">Base</text>
-</a></g>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">Def.L</tspan><tspan x="0" dy="1.2em">Base</tspan>
+</text>
+</g>
 <g transform="translate(563, 278) rotate(-45.0)" class="key trans keypos-46">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
 </g>
 <g transform="translate(583, 193) rotate(-30.0)" class="key keypos-47">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<a href="#Layer1">
-<text x="0" y="0" class="key tap layer-activator">Layer1</text>
-</a></g>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">Def.L</tspan><tspan x="0" dy="1.2em">Layer1</tspan>
+</text>
+</g>
 <g transform="translate(611, 241) rotate(-30.0)" class="key trans keypos-48">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key trans"/>
 </g>
