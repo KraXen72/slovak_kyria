@@ -52,7 +52,8 @@ draw_config:
       font-size: 16px;
     }
 
-    text.shortcut.shifted {
+    text.shortcut.shifted,
+    text.rgb.shifted {
       font-size: 14px;
     }
 

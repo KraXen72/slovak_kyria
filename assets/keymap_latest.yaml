@@ -90,8 +90,8 @@ Break']
     - [Alt, {type: trans}]
     - [{type: trans}, {type: trans}]
     - [{type: held}, ScrLk]
-    - [{t: $$icon_arrow_left$$, s: Alt+, type: shortcut}, {t: L, s: Gui+, type: shortcut}]
-    - [{type: trans}, {t: $$icon_arrow_right$$, s: Alt+, type: shortcut}]
+    - [{t: $$icon_arrow_left$$, s: Alt, type: shortcut}, {t: L, s: Gui+, type: shortcut}]
+    - [{type: trans}, {t: $$icon_arrow_right$$, s: Alt, type: shortcut}]
 
   Symbols:
     - [3, 8]
@@ -143,8 +143,8 @@ Rainbow']
     - [{type: trans}, {t: 8, s: Gui+, type: shortcut}]
     - [{type: trans}, 'RGB
 Swirl']
-    - [{type: trans}, $$icon_sun$$]
-    - [{type: trans}, $$icon_sun_dim$$]
+    - [{type: trans}, {t: $$icon_sun$$, s: RGB, type: rgb}]
+    - [{type: trans}, {t: $$icon_sun_dim$$, s: RGB, type: rgb}]
     - [{type: trans}, {type: trans}]
     - [{type: trans}, {type: held}]
     - [{type: trans}, 'Def.L

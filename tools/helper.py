@@ -800,7 +800,10 @@ def _format_keycode(
                     # cannot turn a shortcut into three overflowing lines.
                     if use_icons and arguments[0] in _ICON_LABELS:
                         inner = _display_atom(arguments[0], custom_keycodes)
-                    return {"t": inner, "s": f"{modifier_label}+", "type": "shortcut"}
+                    label = f"{modifier_label}+"
+                    if operation == "LALT" and arguments[0] in {"KC_LEFT", "KC_RIGHT"}:
+                        label = modifier_label
+                    return {"t": inner, "s": label, "type": "shortcut"}
                 return f"{modifier_label}\n{inner}"
             return f"{_MODIFIER_WRAPPERS[operation]}{inner}"
 
@@ -816,6 +819,8 @@ def _format_keycode(
         ]
         return f"{operation}({', '.join(str(argument) for argument in rendered_arguments)})"
 
+    if use_icons and token in {"RGB_VAI", "RGB_VAD"}:
+        return {"t": _ICON_LABELS[token], "s": "RGB", "type": "rgb"}
     return _display_atom(token, custom_keycodes, use_icons=use_icons)
 
 
